@@ -2,7 +2,6 @@ import React, { useState } from "react";
 import styles from "./CadastroProprietarioServico.module.css";
 import api from "../../api";
 import { toast } from "react-toastify";
-import NavBar from "../../components/NavBar/NavBar";
 
 
 const handleInputChange = (event, setStateFunction) => {

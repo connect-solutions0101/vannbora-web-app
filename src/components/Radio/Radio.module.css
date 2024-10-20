@@ -1,0 +1,63 @@
+@font-face {
+    font-family: "InterMedium";
+    src: url("../../utils/fonts/Inter/Inter_18pt-Medium.ttf") format("truetype");
+}
+
+.div>.label{
+    font-family: "InterMedium";
+    font-size: 16px;
+    color: #000000;
+}
+
+.radios{
+    display: flex;
+    gap: 10px;
+    flex-wrap: wrap;
+}
+
+.radio{
+    display: flex;
+    align-items: center;
+}
+
+.radio input[type="radio"] {
+    appearance: none;
+    width: 26px;
+    height: 26px;
+    border: 1px solid #4E4E4E;
+    border-radius: 50%;
+    position: relative;
+}
+
+.radio input[type="radio"]:not(:checked)::before {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #D9D9D9; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.radio input[type="radio"]:checked::before {
+    content: '';
+    display: block;
+    width: 18px;
+    height: 18px;
+    border-radius: 50%;
+    background-color: #EEC643; 
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+}
+
+.radio>.label{
+    margin-left: 2px;
+    font-family: "InterMedium";
+    font-size: 14px;
+    color: #4E4E4E;
+}
