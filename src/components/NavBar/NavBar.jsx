@@ -12,7 +12,9 @@ const NavBar = () => {
                     () => {
                         alert("Clicou em Minhas Escolas");
                     }
-                } >Minhas Escolas</Botao>
+                }
+                colorPreset={"white"} hoverPreset={"yellow"}
+                 >Minhas Escolas</Botao>
 
                 <Botao size={150} onClick={
                     () => {

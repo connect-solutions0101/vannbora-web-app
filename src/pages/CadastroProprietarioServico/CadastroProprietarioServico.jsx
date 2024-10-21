@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import styles from "./CadastroProprietarioServico.module.css";
 import api from "../../api";
+import logotipo from "../../utils/assets/Logotipo.svg";
+import Input from "../../components/Input/Input";
+import Radio from "../../components/Radio/Radio";
+import Botao from "../../components/Botao/Botao";
 import { toast } from "react-toastify";
 
 
@@ -10,6 +14,7 @@ const handleInputChange = (event, setStateFunction) => {
 
 const CadastroProprietarioServico = () => {
     const [nome, setNome] = useState("");
+    const [sobrenome, setSobrenome] = useState("");
     const [email, setEmail] = useState("");
     const [cpf, setCpf] = useState("");
     const [senha, setSenha] = useState("");
@@ -24,6 +29,7 @@ const CadastroProprietarioServico = () => {
     const handleSave = async () => {
         const proprietario = {
             nome, 
+            sobrenome,
             email, 
             cpf, 
             senha, 
@@ -47,52 +53,74 @@ const CadastroProprietarioServico = () => {
 
     return (
         <>
-            <h1>Cadastro de Proprietário de Serviço</h1>
+            <div className={styles["container"]}>
+                    <form className={styles["formulario"]} onSubmit={handleSubmit}>
+                        <img src={logotipo} alt="Logotipo Vannbora" />
+                        <h1>Cadastro de novo <span>usuário</span></h1>
+                        <div className={styles["inputs"]}>
+                            <Input
+                                type="text"
+                                label="Nome"
+                                value={nome}
+                                onChange={(e) => handleInputChange(e, setNome)}
+                            />
+                            
+                            <Input
+                                type="text"
+                                label="Sobrenome"
+                                value={sobrenome}
+                                onChange={(e) => handleInputChange(e, setSobrenome)}
+                            />
+                        </div>
+                        
+                        <div className={styles["inputs"]}>
+                            <Input
+                                type="email"
+                                label="Email"
+                                value={email}
+                                onChange={(e) => handleInputChange(e, setEmail)}
+                            />
 
-            <form className={styles["formulario"]} onSubmit={handleSubmit}>
-                <div>
-                    <label>Nome</label>
-                    <input
-                    type="text"
-                    value={nome}
-                    onChange={(e) => handleInputChange(e, setNome)}
-                    />
-                </div>
-                <div>
-                    <label>E-mail</label>
-                    <input 
-                    type="text" 
-                    value={email}
-                    onChange={(e) => handleInputChange(e, setEmail)}
-                    />
-                </div>
-                <div>
-                    <label>CPF</label>
-                    <input 
-                    type="text" 
-                    value={cpf}
-                    onChange={(e) => handleInputChange(e, setCpf)}
-                    />
-                </div>
-                <div>
-                    <label>Senha</label>
-                    <input 
-                    type="text" 
-                    value={senha}
-                    onChange={(e) => handleInputChange(e, setSenha)}
-                    />
-                </div>
-                <div>
-                    <label>Role</label>
-                    <select
-                    value={role}
-                    onChange={(e) => handleInputChange(e, setRole)}>
-                        <option value="ADMIN">Admin</option>
-                        <option value="USER">Usuário</option>
-                    </select>
-                </div>
-                <button type="submit">Cadastrar</button>
-            </form>
+                            <Input
+                                type="text"
+                                label="CPF"
+                                value={cpf}
+                                onChange={(e) => handleInputChange(e, setCpf)}  
+                            />
+                        </div>
+                        <div className={styles["inputs"]}>
+                            <Input
+                                type="password"
+                                label="Senha"
+                                value={senha}
+                                onChange={(e) => handleInputChange(e, setSenha)}
+                            />
+                            <Radio
+                                label="Tipo de usuário"
+                                radioLabels={["Usuário", "Admin"]}
+                                values={["USER", "ADMIN"]}
+                                name="role"
+                                onChange={(e) => handleInputChange(e, setRole)}
+                            />
+                        </div>
+                        
+                        <Botao 
+                            type="submit" 
+                            size={170}
+                            colorPreset="yellow"
+                            hoverPreset="blue"
+                        >
+                        Cadastrar
+                        </Botao>
+
+                        <div className={styles["footer"]}>
+                            <p>Já possui uma conta?</p>
+                            <a href="/login">Faça login</a>
+                        </div>
+                    </form>
+            </div>
+
+            
         </>
     );
 };
