@@ -3,6 +3,7 @@ import { useState } from "react";
 import Input from "../../components/Input/Input";
 import Radio from "../../components/Radio/Radio";
 import { inputSomenteTexto } from "../../utils/global";
+import NavBar from "../../components/NavBar/NavBar";
 
 const Test = () => {
 
@@ -22,6 +23,7 @@ const handleInputChange2 = (event) => {
 
     return (
         <>
+            <NavBar />
             <Input
                 type="text"
                 label="Input"
