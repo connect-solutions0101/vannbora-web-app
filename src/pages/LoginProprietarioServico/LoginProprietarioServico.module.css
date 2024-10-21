@@ -1,0 +1,77 @@
+@font-face {
+    font-family: 'PoppinsMedium';
+    src: url('../../utils/fonts/Poppins/Poppins-Medium.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'PoppinsBold';
+    src: url('../../utils/fonts/Poppins/Poppins-Bold.ttf') format('truetype');
+}
+
+@font-face {
+    font-family: 'InterItalic';
+    src: url('../../utils/fonts/Inter/Inter_18pt-Italic.ttf') format('truetype');
+}
+
+.container{
+    width: 100%;
+    height: 100vh;
+    background-image: url('../../utils/assets/cadastroBackground.svg');
+    background-repeat: no-repeat;
+    background-size: cover;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario{
+    width: 529px;
+    height: 508px;
+    background-color: #EEF0F2;
+    border-radius: 15px;
+    border: 1px solid #A9A9A9;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.formulario > .inputs{
+    display: flex;
+    gap: 100px;
+    margin-bottom: 28px;
+}
+
+.formulario img{
+    width: 250px;
+    margin-bottom: 8px;
+}
+
+.formulario h1{
+    font-family: 'PoppinsMedium', sans-serif;
+    font-size: 24px;
+    color: #000;
+    margin-bottom: 16px;
+}
+
+.formulario span{
+    font-family: 'PoppinsBold', sans-serif;
+    font-size: 24px;
+    color: #EEC643;
+}
+
+.formulario .footer{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    margin-top: 16px;
+    font-family: 'InterItalic', sans-serif;
+}
+
+
+.formulario .footer a{
+    text-decoration: none;
+    color: #0D21A1;
+}

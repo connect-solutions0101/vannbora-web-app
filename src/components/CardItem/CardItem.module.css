@@ -1,0 +1,73 @@
+@font-face {
+  font-family: 'PoppinsSemiBold';
+  src: url('../../utils/fonts/Poppins/Poppins-SemiBold.ttf') format('truetype');
+}
+
+
+.container-cards {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  justify-content: flex-start; 
+  padding: 20px;
+  max-width: 100%;
+  border-radius: 12;
+  
+}
+
+
+.item-card {
+  height: 122px;
+  width: 334px;
+  padding: 20px;
+  margin: 0px;
+  border-radius: 12px;
+  background-color: #f8f9fa; 
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  font-family: 'PoppinsSemiBold', sans-serif;
+  transition: transform 0.3s ease; 
+  
+}
+
+/* Efeito hover */
+.item-card:hover {
+  transform: translateY(-5px); 
+}
+
+
+.item-card h3 {
+  font-size: 1.2em;
+  font-weight: bold;
+  margin-bottom: 10px;
+  color: #333;
+  
+}
+
+.item-card p {
+  font-size: 1em;
+  margin: 5px 0;
+  color: #666;
+  text-align: left; /* Alinha o texto à esquerda */
+}
+
+/* Alinhamento dos textos dentro dos cards */
+.item-card p span {
+  display: block;
+  font-weight: bold;
+  margin-bottom: 5px;
+  text-align: left; 
+ 
+}
+
+/* Ajuste do layout para uma seção adicional (se houver) */
+.secao-direita {
+  display: flex;
+  justify-content: flex-start; /* Alinha os elementos à esquerda */
+  align-items: center;
+  max-width: 100%;
+}
+
+.secao-direita img {
+  max-width: 100%;
+  border-radius: 8px;
+}

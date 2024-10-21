@@ -4,6 +4,7 @@ import Input from "../../components/Input/Input";
 import Radio from "../../components/Radio/Radio";
 import { inputSomenteTexto } from "../../utils/global";
 import NavBar from "../../components/NavBar/NavBar";
+import CardItem from "../../components/CardItem/CardItem"
 
 const Test = () => {
 
@@ -23,21 +24,9 @@ const handleInputChange2 = (event) => {
 
     return (
         <>
-            <NavBar />
-            <Input
-                type="text"
-                label="Input"
-                value={inputValue}
-                onChange={handleInputChange}
-            />
-            <Radio 
-                size={250}
-                label="Radio"
-                radioLabels={["Usuário", "Admin"]}
-                values={["Opção 1", "Opção 2"]}
-                name="radio"
-                onChange={handleInputChange2}
-            />
+            
+
+            <CardItem></CardItem>
         </>
     );
 };
