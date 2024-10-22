@@ -6,6 +6,7 @@ import Input from "../../components/Input/Input";
 import Radio from "../../components/Radio/Radio";
 import Botao from "../../components/Botao/Botao";
 import { toast } from "react-toastify";
+import { useNavigate } from "react-router-dom";
 
 
 const handleInputChange = (event, setStateFunction) => {
@@ -20,16 +21,17 @@ const CadastroProprietarioServico = () => {
     const [senha, setSenha] = useState("");
     const [role, setRole] = useState("USER");
 
+    const navigate = useNavigate();
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("Formulário enviado:", { nome, email, cpf, senha, role });
+        setNome(nome + " " + sobrenome);
         handleSave();
     };
 
     const handleSave = async () => {
         const proprietario = {
             nome, 
-            sobrenome,
             email, 
             cpf, 
             senha, 
@@ -41,7 +43,7 @@ const CadastroProprietarioServico = () => {
           .then((r) => {
             console.log(r);
             toast.success("Usuário cadastrado com sucesso!");
-            // sessionStorage.setItem("editado", JSON.stringify(objetoAdicionado));
+            navigate("/login");
           })
           .catch((e) => {
             console.error(e);

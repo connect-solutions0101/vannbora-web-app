@@ -1,33 +1,35 @@
 import React from "react";
-import { useState } from "react";
-import Input from "../../components/Input/Input";
-import Radio from "../../components/Radio/Radio";
-import { inputSomenteTexto } from "../../utils/global";
-import NavBar from "../../components/NavBar/NavBar";
-import CardItem from "../../components/CardItem/CardItem"
+import ItemList from "../../components/ItemList/ItemList";
 
 const Test = () => {
+    const values = [
+        {
+            title: "Escola 01",
+            firstValue: "Alunos: 12",
+            secondValue: "Pagamentos Restantes: 0"
+        },
+        {
+            title: "Escola 02",
+            firstValue: "Alunos: 12",
+            secondValue: "Pagamentos Restantes: 0"
+        },
+        {
+            title: "Escola 03",
+            firstValue: "Alunos: 12",
+            secondValue: "Pagamentos Restantes: 0"
+        },
+        {
+            title: "Escola 04",
+            firstValue: "Alunos: 12",
+            secondValue: "Pagamentos Restantes: 0"
+        }
 
-const [inputValue, setInputValue] = useState("");
-const [inputValue2, setInputValue2] = useState("");
-
-const handleInputChange = (event) => {
-    inputSomenteTexto(event);
-    setInputValue(event.target.value);
-};
-
-const handleInputChange2 = (event) => {
-    console.log(event.target.value);
-    console.log(inputValue2);
-    setInputValue2(event.target.value);
-}
+    ];
 
     return (
-        <>
-            
-
-            <CardItem></CardItem>
-        </>
+        <div>
+            <ItemList values={values} />
+        </div>
     );
 };
 

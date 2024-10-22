@@ -1,28 +1,16 @@
-import React, { useState } from "react";
-import { toast } from "react-toastify";
-import api from "../../api";
+import React from "react";
 import styles from "./CardItem.module.css";
 
-function CardItem(values) {
-  const [items, setItems] = useState([values]);
-
- 
+function CardItem({title, firstValue, secondValue}) {
 
   return (
-    <>
-
       <div className={styles["container-card"]}>
-        <div className={styles["item-list-container"]}>
-          {items.map((item) => (
-            <div key={item.id} className={styles["item-card"]}>
-              <h3>{item.titulo}</h3>
-              <p>ITENS: {item.itens}</p>
-              <p>ITENS PENDENTES: {item.pendentes}</p>
+            <div className={styles["item-card"]}>
+              <h3>{title}</h3>
+              <p>{firstValue}</p>
+              <p>{secondValue}</p>
             </div>
-          ))}
-        </div>
       </div>
-    </>
   );
 }
 
