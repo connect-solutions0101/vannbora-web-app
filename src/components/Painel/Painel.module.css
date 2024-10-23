@@ -1,0 +1,26 @@
+.painel{
+    width: 730px;
+    height: 500px;
+    background-color: #EEC643;
+    border-radius: 12px;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    padding-top: 30px;
+}
+
+.painel .container{
+    width: 688px;
+    height: 376px;
+    background-color: #F9F9F9;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+}
+
+.painel .botao{
+    width: 100%;
+    flex-grow: 1;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
