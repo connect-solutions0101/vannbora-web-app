@@ -3,9 +3,10 @@ import styles from "./LoginProprietarioServico.module.css";
 import api from "../../api";
 import logotipo from "../../utils/assets/Logotipo.svg";
 import Input from "../../components/Input/Input";
-import Radio from "../../components/Radio/Radio";
 import Botao from "../../components/Botao/Botao";
 import { toast } from "react-toastify";
+import Cookies from 'js-cookie';
+import { useNavigate } from "react-router-dom";
 
 
 const handleInputChange = (event, setStateFunction) => {
@@ -16,9 +17,10 @@ const LoginProprietarioServico = () => {
     const [email, setEmail] = useState("");
     const [senha, setSenha] = useState("");
 
+    const navigate = useNavigate();
+
     const handleSubmit = (event) => {
         event.preventDefault();
-        console.log("Formulário enviado:", { email, senha});
         handleSave();
     };
 
@@ -29,10 +31,18 @@ const LoginProprietarioServico = () => {
         };
         
         api
-          .post(`auth/registrar`, proprietario)
+          .post(`auth/login`, proprietario)
           .then((r) => {
-            console.log(r);
+            console.log(r.data);
+        
+            Cookies.set('token', r.data.token);
+            Cookies.set('id', r.data.id);
+            Cookies.set('role', r.data.role);
+            Cookies.set('nome', r.data.nome);
+
             toast.success("Login realizado com sucesso!");
+
+            navigate("/test");
           })
           .catch((e) => {
             console.error(e);
