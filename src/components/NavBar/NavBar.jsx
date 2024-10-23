@@ -20,20 +20,26 @@ const NavBar = () => {
                     () => {
                         alert("Clicou em Meus Alunos");
                     }
-                }>Meus Alunos</Botao>
+                }
+                colorPreset={"white"} hoverPreset={"yellow"}
+                >Meus Alunos</Botao>
 
                 <Botao size={150} onClick={
                     () => {
                         alert("Clicou em Minhas Finanças");
                     }
-                }>Minhas Finanças</Botao>          
+                }
+                colorPreset={"white"} hoverPreset={"yellow"}
+                >Minhas Finanças</Botao>          
             </div>
             <div className={styles["sair"]}>
                 <Botao size={75} onClick={
                     () => {
                         alert("Clicou em Sair");
                     }
-                }>Sair</Botao>
+                }
+                colorPreset={"white"} hoverPreset={"yellow"}
+                >Sair</Botao>
             </div>
         </nav>
       );
