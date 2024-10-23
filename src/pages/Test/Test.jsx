@@ -9,36 +9,45 @@ import Botao from "../../components/Botao/Botao";
 const Test = () => {
     const values = [
         {
-            title: "Escola 01",
-            firstValue: "Alunos: 12",
-            secondValue: "Pagamentos Restantes: 0"
+            title: "01",
+            firstValue: "12",
+            secondValue: "0"
         },
         {
-            title: "Escola 02",
-            firstValue: "Alunos: 12",
-            secondValue: "Pagamentos Restantes: 0"
+            title: "02",
+            firstValue: "12",
+            secondValue: "0"
         },
         {
-            title: "Escola 03",
-            firstValue: "Alunos: 12",
-            secondValue: "Pagamentos Restantes: 0"
+            title: "03",
+            firstValue: "12",
+            secondValue: "0"
         },
         {
-            title: "Escola 04",
-            firstValue: "Alunos: 12",
-            secondValue: "Pagamentos Restantes: 0"
+            title: "04",
+            firstValue: "12",
+            secondValue: "0"
+        },
+        {
+            title: "05",
+            firstValue: "12",
+            secondValue: "0"
+        },
+        {
+            title: "06",
+            firstValue: "12",
+            secondValue: "0"
         }
-
     ];
 
     return (
         <div>
             <NavBar />
-            <ItemList values={values} />
-            <CardItem title="Escola 01" firstValue="Alunos: 12" secondValue="Pagamentos Restantes: 0" />
+            <ItemList values={values} title={"Escola"} firstLabel={"Alunos:"} secondLabel={"Pagamentos Restantes:"}/>
+            {/* <CardItem title="Escola 01" firstValue="Alunos: 12" secondValue="Pagamentos Restantes: 0" />
             <Input size={224} type="text" label="Nome" value="" onChange={() => { }} />
             <Radio size={224} label="Sexo" radioLabels={["Masculino", "Feminino"]} values={["M", "F"]} name="sexo" onChange={() => { }} />
-            <Botao size={150} onClick={() => { }} colorPreset={"white"} hoverPreset={"yellow"}>Minhas Escolas</Botao>
+            <Botao size={150} onClick={() => { }} colorPreset={"white"} hoverPreset={"yellow"}>Minhas Escolas</Botao> */}
         </div>
 
     );
