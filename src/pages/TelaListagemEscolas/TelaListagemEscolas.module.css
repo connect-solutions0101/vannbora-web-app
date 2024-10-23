@@ -1,0 +1,78 @@
+@font-face {
+    font-family: 'InterExtraBold';
+    src: url('../../utils/fonts/Inter/Inter_18pt-ExtraBold.ttf') format('truetype');
+}
+
+.container{
+    width: 100%;
+    height: calc(100vh - 80px);
+    background-color: #EEF0F2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.painel{
+    display: flex;
+    width: 1206px;
+    height: 638px;
+    border-radius: 12px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    background-color: #F9F9F9;
+    padding: 0 25px;
+    gap: 50px;
+}
+
+.left{
+    width: 376px;
+    height: 100%;
+}
+
+.left .top-session{
+    height: 88px;
+}
+
+.left .top-session h1{
+    font-family: 'InterExtraBold';
+    font-size: 20px;
+    color: #1A1A1A;
+    margin-top: 20px;
+    margin-bottom: 7px;
+}
+
+.left .top-session .search-box{
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    gap: 8px;
+}
+
+.left .top-session .search-box svg{
+    width: 22px;
+    height: 22px;
+}
+
+.left .top-session .search-box input{
+    width: 250px;
+    height: 20px;
+    border-radius: 26px;
+    border: 1px solid #011638;
+    background-color: #fff;
+    padding: 0 10px;
+}
+
+.left .top-session .search-box input:focus{
+    outline: none;
+}
+
+.right{
+    width: 730px;
+    height: 100%;
+}
+
+.right .top-session{
+    display: flex;  
+    justify-content: center;
+    align-items: center;
+    height: 88px;
+}
