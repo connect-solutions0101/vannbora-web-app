@@ -1,3 +1,5 @@
+import Cookies from "js-cookie";
+
 export const transformarData = (dataString) => {
     const data = new Date(dataString);
     return data.toLocaleDateString("pt-BR", {
@@ -46,3 +48,10 @@ export const transformarData = (dataString) => {
   export const inputNumerosCelular = (e) => {
     e.target.value = e.target.value.replace(/[^0-9()\s-]/g, "");
   };
+
+  export const logoff = () => {
+    Cookies.remove('token');
+    Cookies.remove('id');
+    Cookies.remove('role');
+    Cookies.remove('nome');
+  }

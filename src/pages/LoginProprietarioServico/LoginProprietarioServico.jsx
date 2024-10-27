@@ -42,7 +42,7 @@ const LoginProprietarioServico = () => {
 
             toast.success("Login realizado com sucesso!");
 
-            navigate("/test");
+            navigate("/escolas");
           })
           .catch((e) => {
             console.error(e);
