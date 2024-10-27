@@ -6,7 +6,7 @@ function ItemList({values, title, firstLabel, secondLabel, endpoint, setPainelSt
 
     return (
             <div className={styles["container"]}>
-                    {values.map((item, index) => (
+                    {values.length !== 0 && values.map((item, index) => (
                         <CardItem 
                             key={index} 
                             title={title+" "+item.nome} 
