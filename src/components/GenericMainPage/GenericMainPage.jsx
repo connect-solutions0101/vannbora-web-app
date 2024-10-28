@@ -43,9 +43,14 @@ const GenericMainPage = ({
                             <Botao colorPreset={"blue"} hoverPreset={"yellow"} size={150} onClick={cadastrarFunction}> Cadastrar </Botao>
                         </div>
                         <div className={styles["bottom-session"]}>
-                            <Painel painelItems={painel}>
-                                {children}
+                            <Painel editFunction={editFunction} painelItems={painel}>
+                                {painel.id !== "" ? (
+                                    children
+                                ) : (
+                                    null
+                                )}
                             </Painel>
+                            
                         </div>
                     </div>
                 </div>

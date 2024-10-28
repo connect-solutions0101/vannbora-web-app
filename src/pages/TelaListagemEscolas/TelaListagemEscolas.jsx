@@ -3,6 +3,7 @@ import GenericMainPage from "../../components/GenericMainPage/GenericMainPage";
 import api from "../../api";
 import Cookies from 'js-cookie';
 import { useEffect } from "react";
+import ItemForm from "../../components/ItemForm/ItemForm";
 
 const TelaListagemEscolas = () => {
 
@@ -26,7 +27,19 @@ const TelaListagemEscolas = () => {
     }, []);
 
     const [escolas, setEscolas] = React.useState([]);
-    const [painelEscola, setPainelEscola] = React.useState({});
+
+    const [painelEscola, setPainelEscola] = React.useState({
+        id: "",
+        nome: "",
+        telefone: "",
+        representante: "",
+        telRepresentante: "",
+        cep: "",
+        numero: "",
+        logradouro: "",
+        cidade: "",
+        bairro: ""
+    });
 
     return (
         <>
@@ -37,7 +50,9 @@ const TelaListagemEscolas = () => {
                 secondLabel={"Pagamentos Restantes:"} 
                 endpoint={"escolas"}
                 setPainel={setPainelEscola}
+                editFunction={console.log(painelEscola)}
                 painel={painelEscola}>
+                <ItemForm painelState={painelEscola} setPainelState={setPainelEscola}/>
             </GenericMainPage>
         </>
     );

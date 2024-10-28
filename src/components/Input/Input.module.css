@@ -17,7 +17,7 @@
     font-family: "InterMedium";
     font-size: 14px;
     color: #011638;
-    background-color: #EEF0F2;
+    background-color: transparent;
 }
 
 .input:focus{
