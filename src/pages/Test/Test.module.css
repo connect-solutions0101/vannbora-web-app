@@ -1,0 +1,55 @@
+@font-face {
+    font-family: 'PoppinsSemiBold';
+    src: url('../../utils/fonts/Poppins/Poppins-SemiBold.ttf') format('truetype');
+}
+
+.botao{
+    height: 35px;
+    border-radius: 5px;
+    border: none;
+    cursor: pointer;
+    font-size: 16px;
+    font-family: 'PoppinsSemiBold', sans-serif;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+}
+
+.botao:hover{
+    box-shadow: inset 0 8px 8px -8px rgba(0, 0, 0, 0.5);
+}
+
+.yellow{
+    background-color: #EEC643;
+    color: #011638;
+    
+}
+
+.blue{
+    background-color: #011638;
+    color: #f9f9f9;
+}
+
+.white{
+    background-color: #f9f9f9;
+    color: #011638;
+    
+}
+
+.yellowHover:hover{
+    background-color: #EEC643;
+    color: #011638;
+}
+
+.blueHover:hover{
+    background-color: #011638;
+    color: #f9f9f9;
+}
+
+.whiteHover:hover{
+    background-color: #f9f9f9;
+    color: #011638;
+}
+
+.redHover:hover{
+    background-color: #f9f9f9;
+    color: red;
+}

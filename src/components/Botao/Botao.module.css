@@ -10,7 +10,7 @@
     cursor: pointer;
     font-size: 16px;
     font-family: 'PoppinsSemiBold', sans-serif;
-    transition: background-color 0.5s ease, box-shadow 0.5s ease;
+    transition: background-color 0.5s ease, box-shadow 0.5s ease, border 0.5s ease;
 }
 
 .botao:hover{
@@ -31,7 +31,18 @@
 .white{
     background-color: #f9f9f9;
     color: #011638;
-    
+}
+
+.whiteBlue{
+    background-color: #EEF0F2;
+    color: #011638;
+    border: solid 1px #0D21A1;
+}
+
+.whiteRed{
+    background-color: #EEF0F2;
+    color: #E21F1F;
+    border: solid 1px #E21F1F;
 }
 
 .yellowHover:hover{
@@ -39,7 +50,7 @@
     color: #011638;
 }
 
-.blueHover:hover{
+.darkBlueHover:hover{
     background-color: #011638;
     color: #f9f9f9;
 }
@@ -47,4 +58,15 @@
 .whiteHover:hover{
     background-color: #f9f9f9;
     color: #011638;
+}
+
+.blueHover:hover{
+    background-color: #0D21A1;
+    color:#EEF0F2;
+}
+
+.redHover:hover{
+    background-color: #E21F1F;
+    color:#EEF0F2;
+    border: solid 1px #141414;
 }
