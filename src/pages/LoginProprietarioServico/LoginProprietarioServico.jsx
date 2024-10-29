@@ -90,7 +90,7 @@ const LoginProprietarioServico = () => {
 
                         <div className={styles["footer"]}>
                             <p>Ainda não possui uma conta?</p>
-                            <a href="/login">Cadastre-se</a>
+                            <a href="/cadastro">Cadastre-se</a>
                         </div>
                     </form>
             </div>

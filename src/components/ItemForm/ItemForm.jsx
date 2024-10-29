@@ -3,7 +3,7 @@ import styles from "./ItemForm.module.css";
 import Input from "../Input/Input";
 import { RiCloseCircleLine } from "react-icons/ri";
 
-function ItemForm({endpoint, setPainelState, values}) {
+function ItemForm({endpoint, setPainelState, painelState}) {
 
         const atualizarPropriedade = (e, prop) => {          
             setPainelState(prevState => ({
@@ -17,12 +17,17 @@ function ItemForm({endpoint, setPainelState, values}) {
                 id: "",
                 nome: "",
                 telefone: "",
-                representante: "",
-                telRepresentante: "",
-                cep: "",
-                numero: "",
-                logradouro: "",
-                cidade: ""
+                nomeRepresentante: "",
+                telefoneRepresentante: "",
+                endereco:{
+                    id: "",
+                    cep: "",
+                    numero: "",
+                    logradouro: "",
+                    cidade: "",
+                    bairro: "",
+                    pontoReferencia: ""
+                }
             });
         };
     
@@ -37,12 +42,14 @@ function ItemForm({endpoint, setPainelState, values}) {
                             label={"Nome da escola"}
                             size={176}
                             onChange={(e) => atualizarPropriedade(e, "nome")}
+                            value={painelState.nome}
                         />
                         <Input
                             type="text"
                             label={"Telefone da escola"} 
                             size={176}
                             onChange={(e) => atualizarPropriedade(e, "telefone")}
+                            value={painelState.telefone}
                         />
                     </div>
                     <div className={styles.inputs}>
@@ -50,13 +57,15 @@ function ItemForm({endpoint, setPainelState, values}) {
                             type="text"
                             label={"Representante"}
                             size={176}
-                            onChange={(e) => atualizarPropriedade(e, "representante")}
+                            onChange={(e) => atualizarPropriedade(e, "nomeResponsavel")}
+                            value={painelState.nomeResponsavel}
                         />
                         <Input
                             type="text"
                             label={"Tel representante"} 
                             size={176}
-                            onChange={(e) => atualizarPropriedade(e, "telefoneRepresentante")}
+                            onChange={(e) => atualizarPropriedade(e, "telefoneResponsavel")}
+                            value={painelState.telefoneResponsavel}
                         />
                     </div>
                     <div className={styles.inputs}>
@@ -65,20 +74,23 @@ function ItemForm({endpoint, setPainelState, values}) {
                                 type="text"
                                 label={"CEP"}
                                 size={84}
-                                onChange={(e) => atualizarPropriedade(e, "cep")}
+                                onChange={(e) => atualizarPropriedade(e, "endereco.cep")}
+                                value={painelState.endereco.cep}
                             />
                             <Input
                                 type="text"
                                 label={"Nº"} 
                                 size={84}
-                                onChange={(e) => atualizarPropriedade(e, "numero")}
+                                onChange={(e) => atualizarPropriedade(e, "endereco.numero")}
+                                value={painelState.endereco.numero}
                             />
                         </div>
                         <Input
                             type="text"
                             label={"Logradouro (Rua)"}
                             size={176}
-                            onChange={(e) => atualizarPropriedade(e, "logradouro")}
+                            onChange={(e) => atualizarPropriedade(e, "endereco.logradouro")}
+                            value={painelState.endereco.logradouro}
                         />                        
                     </div>
                     <div className={styles.inputs}>
@@ -86,13 +98,15 @@ function ItemForm({endpoint, setPainelState, values}) {
                             type="text"
                             label={"Cidade"} 
                             size={176}
-                            onChange={(e) => atualizarPropriedade(e, "cidade")}
+                            onChange={(e) => atualizarPropriedade(e, "endereco.cidade")}
+                            value={painelState.endereco.cidade}
                         />
                         <Input
                             type="text"
                             label={"Bairro"}
                             size={176}
-                            onChange={(e) => atualizarPropriedade(e, "bairro")}
+                            onChange={(e) => atualizarPropriedade(e, "endereco.bairro")}
+                            value={painelState.endereco.bairro}
                         />
                     </div>
                 </form>

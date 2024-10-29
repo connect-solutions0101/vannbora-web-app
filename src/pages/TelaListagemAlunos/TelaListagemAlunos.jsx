@@ -7,7 +7,7 @@ import api from "../../api";
 const TelaListagemAlunos = () => {  
 
     function handleGetDependentes() {
-        api.get(process.env.REACT_APP_DEPENDENTES_URI,
+        api.get("alunos/full/"+Cookies.get('id'),
             {
                 headers: {
                     Authorization: `Bearer ${Cookies.get('token')}`

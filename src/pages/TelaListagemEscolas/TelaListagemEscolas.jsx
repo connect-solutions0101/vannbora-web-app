@@ -3,12 +3,13 @@ import GenericMainPage from "../../components/GenericMainPage/GenericMainPage";
 import api from "../../api";
 import Cookies from 'js-cookie';
 import { useEffect } from "react";
+import { toast } from "react-toastify";
 import ItemForm from "../../components/ItemForm/ItemForm";
 
 const TelaListagemEscolas = () => {
 
     function handleGetEscolas() {
-        api.get(process.env.REACT_APP_ESCOLAS_URI,
+        api.get("escolas/full/"+Cookies.get('id'),
             {
                 headers: {
                     Authorization: `Bearer ${Cookies.get('token')}`
@@ -18,6 +19,26 @@ const TelaListagemEscolas = () => {
             setEscolas(response.data);
         }
         ).catch((error) => {
+            console.log(error);
+        });
+    }
+
+    function handleEditEscola() {
+        console.log(painelEscola);
+        
+        api.put("escolas/"+painelEscola.id,
+            painelEscola,
+            {
+                headers: {
+                    Authorization: `Bearer ${Cookies.get('token')}`
+                },
+            }
+        ).then((response) => {
+            setPainelEscola(response.data);
+            toast.success("Escola editada com sucesso!");
+        }
+        ).catch((error) => {
+            toast.error("Houve um problema na edição da escola, por favor, tente novamente.");
             console.log(error);
         });
     }
@@ -32,13 +53,17 @@ const TelaListagemEscolas = () => {
         id: "",
         nome: "",
         telefone: "",
-        representante: "",
-        telRepresentante: "",
-        cep: "",
-        numero: "",
-        logradouro: "",
-        cidade: "",
-        bairro: ""
+        nomeRepresentante: "",
+        telefoneRepresentante: "",
+        endereco:{
+            id: "",
+            cep: "",
+            numero: "",
+            logradouro: "",
+            cidade: "",
+            bairro: "",
+            pontoReferencia: ""
+        }
     });
 
     return (
@@ -50,7 +75,7 @@ const TelaListagemEscolas = () => {
                 secondLabel={"Pagamentos Restantes:"} 
                 endpoint={"escolas"}
                 setPainel={setPainelEscola}
-                editFunction={console.log(painelEscola)}
+                editFunction={handleEditEscola}
                 painel={painelEscola}>
                 <ItemForm painelState={painelEscola} setPainelState={setPainelEscola}/>
             </GenericMainPage>
