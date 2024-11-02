@@ -10,7 +10,6 @@ function CardItem({title, firstValue, secondValue, endpoint, id, setPainelState}
       Authorization: `Bearer ${Cookies.get('token')}`
       }
     }).then((response) => {
-      console.log(response.data);
       setPainelState(response.data);
     });
   };

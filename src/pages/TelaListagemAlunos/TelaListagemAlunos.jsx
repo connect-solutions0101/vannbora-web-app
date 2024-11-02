@@ -7,13 +7,15 @@ import api from "../../api";
 const TelaListagemAlunos = () => {  
 
     function handleGetDependentes() {
-        api.get("alunos/full/"+Cookies.get('id'),
+        api.get("dependentes/full/"+Cookies.get('id'),
             {
                 headers: {
                     Authorization: `Bearer ${Cookies.get('token')}`
                 }
             }
         ).then((response) => {
+            console.log(response.data);
+            
             setDependentes(response.data);
         }
         ).catch((error) => {

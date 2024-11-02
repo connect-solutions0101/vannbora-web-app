@@ -5,8 +5,11 @@ import Cookies from 'js-cookie';
 import { useEffect } from "react";
 import { toast } from "react-toastify";
 import ItemForm from "../../components/ItemForm/ItemForm";
+import { useNavigate } from "react-router-dom";
 
 const TelaListagemEscolas = () => {
+
+    const navigate = useNavigate();
 
     function handleGetEscolas() {
         api.get("escolas/full/"+Cookies.get('id'),
@@ -23,9 +26,8 @@ const TelaListagemEscolas = () => {
         });
     }
 
-    function handleEditEscola() {
+    function handleEditEscola() {        
         console.log(painelEscola);
-        
         api.put("escolas/"+painelEscola.id,
             painelEscola,
             {
@@ -75,6 +77,7 @@ const TelaListagemEscolas = () => {
                 secondLabel={"Pagamentos Restantes:"} 
                 endpoint={"escolas"}
                 setPainel={setPainelEscola}
+                cadastrarFunction={() => navigate("/escolas/cadastro")}
                 editFunction={handleEditEscola}
                 painel={painelEscola}>
                 <ItemForm painelState={painelEscola} setPainelState={setPainelEscola}/>

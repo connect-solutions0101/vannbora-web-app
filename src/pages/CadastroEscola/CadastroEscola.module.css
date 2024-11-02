@@ -38,21 +38,24 @@
 }
 
 .formulario h1 {
-  margin-bottom: 36px;
+  margin-bottom: 60px;
 }
 
 .formulario > .inputs {
   display: flex;
-  gap: 100px;
+  gap: 140px;
   margin-bottom: 8px;
 }
 .formulario > .inputs > .doubleInput {
   display: flex;
-  max-width: 176px;
-  gap: 8px;
+  max-width: fit-content;
+  gap: 20px;
+  justify-content: space-between;
 }
 
 .botoes{
-    color: red;
+  display: flex;
+  gap: 140px;
+  margin-top: 80px;
 }
 

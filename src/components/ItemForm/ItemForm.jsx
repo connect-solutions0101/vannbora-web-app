@@ -5,11 +5,23 @@ import { RiCloseCircleLine } from "react-icons/ri";
 
 function ItemForm({endpoint, setPainelState, painelState}) {
 
-        const atualizarPropriedade = (e, prop) => {          
-            setPainelState(prevState => ({
-                ...prevState,
-                [prop]: e.target.value
-            }));
+        const atualizarPropriedade = (e, prop) => {
+            const props = prop.split(".");
+            if(props.length === 1){
+                setPainelState((prevState) => ({
+                    ...prevState,
+                    [prop]: e.target.value,
+                }));
+            }
+            else if(props.length === 2){
+                setPainelState((prevState) => ({
+                    ...prevState,
+                    [props[0]]: {
+                        ...prevState[props[0]],
+                        [props[1]]: e.target.value,
+                    }
+                }));
+            }
         };
 
         const resetarObj = () => {
@@ -19,7 +31,7 @@ function ItemForm({endpoint, setPainelState, painelState}) {
                 telefone: "",
                 nomeRepresentante: "",
                 telefoneRepresentante: "",
-                endereco:{
+                endereco: {
                     id: "",
                     cep: "",
                     numero: "",

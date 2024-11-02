@@ -2,44 +2,92 @@ import React, { useState } from "react";
 import styles from "./CadastroEscola.module.css";
 import Input from "../../components/Input/Input";
 import Botao from "../../components/Botao/Botao";
+import { useNavigate } from "react-router-dom";
+import api from "../../api";
+import Cookies from 'js-cookie';
+import { toast } from "react-toastify";
 
 const CadastroEscola = () => {
-  const [nomeEscola, setNomeEscola] = useState("");
-  const [representante, setRepresentante] = useState("");
-  const [cep, setCep] = useState("");
-  const [n, setN] = useState("");
-  const [cidade, setCidade] = useState("");
-  const [telefoneEscola, setTelefoneEscola] = useState("");
-  const [telefoneRepresentante, setTelefoneRepresentante] = useState("");
-  const [logradouro, setLogradouro] = useState("");
-  const [bairro, setBairro] = useState("");
+
+  const navigate = useNavigate();
 
   const [painelEscola, setPainelEscola] = useState({
     id: "",
     nome: "",
     telefone: "",
-    nomeRepresentante: "",
-    telefoneRepresentante: "",
+    nomeResponsavel: "",
+    telefoneResponsavel: "",
     endereco: {
       cep: "",
       numero: "",
       logradouro: "",
       cidade: "",
-      bairro: "",
-    },
+      bairro: ""
+    }
   });
 
   const atualizarPropriedade = (e, prop) => {
-    setPainelEscola((prevState) => ({
-      ...prevState,
-      [prop]: e.target.value,
-    }));
+    const props = prop.split(".");
+    if(props.length === 1){
+        setPainelEscola((prevState) => ({
+            ...prevState,
+            [prop]: e.target.value,
+        }));
+    }
+    else if(props.length === 2){
+        setPainelEscola((prevState) => ({
+            ...prevState,
+            [props[0]]: {
+                ...prevState[props[0]],
+                [props[1]]: e.target.value,
+            }
+        }));
+    }
   };
+
+  function handleCancel(){
+    setPainelEscola({
+      id: "",
+      nome: "",
+      telefone: "",
+      nomeResponsavel: "",
+      telefoneResponsavel: "",
+      endereco: {
+        cep: "",
+        numero: "",
+        logradouro: "",
+        cidade: "",
+        bairro: ""
+      }
+    });
+    
+    navigate("/escolas");
+  } 
+
+  function handleSave(event) {
+    event.preventDefault();
+    api.post("/escolas/"+Cookies.get('id'),
+        painelEscola,
+        {
+            headers: {
+                Authorization: `Bearer ${Cookies.get('token')}`
+            },
+        }
+    ).then((response) => {
+        setPainelEscola(response.data);
+        toast.success("Escola cadastrada com sucesso!");
+    }
+    ).catch((error) => {
+        toast.error("Houve um problema no cadastro da escola, por favor, tente novamente.");
+        console.log(error);
+    });
+    navigate("/escolas");
+  }
 
   return (
     <div className={styles["fundo"]}>
       <div className={styles["container"]}>
-        <form className={styles["formulario"]}>
+        <div className={styles["formulario"]} onSubmit={handleSave}>
           <h1>
             Cadastrar nova <span style={{ color: "#0D21A1" }}>Escola</span>
           </h1>
@@ -47,74 +95,88 @@ const CadastroEscola = () => {
             <Input
               type="text"
               label={"Nome da escola"}
-              size={176}
+              size={280}
               onChange={(e) => atualizarPropriedade(e, "nome")}
+              value={painelEscola.nome}
             />
             <Input
               type="text"
               label={"Telefone da escola"}
-              size={176}
+              size={280}
               onChange={(e) => atualizarPropriedade(e, "telefone")}
+              value={painelEscola.telefone}
             />
           </div>
           <div className={styles.inputs}>
             <Input
               type="text"
               label={"Representante"}
-              size={176}
-              onChange={(e) => atualizarPropriedade(e, "representante")}
+              size={280}
+              onChange={(e) => atualizarPropriedade(e, "nomeResponsavel")}
+              value={painelEscola.nomeResponsavel}
             />
             <Input
               type="text"
               label={"Tel representante"}
-              size={176}
-              onChange={(e) => atualizarPropriedade(e, "telefoneRepresentante")}
+              size={280}
+              onChange={(e) => atualizarPropriedade(e, "telefoneResponsavel")}
+              value={painelEscola.telefoneResponsavel}
             />
           </div>
           <div className={styles.inputs}>
-            <div className={styles.doubleInput} style={{ display: "flex" }}>
+            <div className={styles.doubleInput}>
               <Input
                 type="text"
                 label={"CEP"}
-                size={84}
-                onChange={(e) => atualizarPropriedade(e, "cep")}
+                size={130}
+                onChange={(e) => atualizarPropriedade(e, "endereco.cep")}
+                value={painelEscola.endereco.cep}
               />
               <Input
                 type="text"
                 label={"Nº"}
-                size={84}
-                onChange={(e) => atualizarPropriedade(e, "numero")}
+                size={130}
+                onChange={(e) => atualizarPropriedade(e, "endereco.numero")}
+                value={painelEscola.endereco.numero}
               />
             </div>
             <Input
               type="text"
               label={"Logradouro (Rua)"}
-              size={176}
-              onChange={(e) => atualizarPropriedade(e, "logradouro")}
+              size={280}
+              onChange={(e) => atualizarPropriedade(e, "endereco.logradouro")}
+              value={painelEscola.endereco.logradouro}
             />
           </div>
           <div className={styles.inputs}>
             <Input
               type="text"
               label={"Cidade"}
-              size={176}
-              onChange={(e) => atualizarPropriedade(e, "cidade")}
+              size={280}
+              onChange={(e) => atualizarPropriedade(e, "endereco.cidade")}
+              value={painelEscola.endereco.cidade}
             />
             <Input
               type="text"
               label={"Bairro"}
-              size={176}
-              onChange={(e) => atualizarPropriedade(e, "bairro")}
+              size={280}
+              onChange={(e) => atualizarPropriedade(e, "endereco.bairro")}
+              value={painelEscola.endereco.bairro}
             />
           </div>
-          <div className={styles.Botao["botoes"]}>
-            <button>Cancelar</button>
+          <div className={styles["botoes"]}>
+            <Botao size={140} colorPreset="whiteRed" hoverPreset="red" onClick={handleCancel}>
+              Cancelar
+            </Botao>
 
-            <button>Salvar</button>
+            <Botao size={140} colorPreset="whiteBlue" hoverPreset="blue" onClick={handleSave}>
+              Cadastrar
+            </Botao>
           </div>
-        </form>
+        </div>
       </div>
     </div>
   );
 };
+
 export default CadastroEscola;

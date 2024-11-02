@@ -107,10 +107,9 @@ const CadastroProprietarioServico = () => {
                         </div>
                         
                         <Botao 
-                            type="submit" 
                             size={170}
                             colorPreset="yellow"
-                            hoverPreset="blue"
+                            hoverPreset="darkBlue"
                         >
                         Cadastrar
                         </Botao>

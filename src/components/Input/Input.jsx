@@ -5,7 +5,7 @@ const Input = ({ size, type, label, value, onChange }) => {
     return (
         <div style={{width: (size||224)+"px"}} className={styles["div"]}>
             <label className={styles["label"]} >{label}</label>
-            <input type={type} value={value} onChange={onChange} className={styles["input"]} />
+            <input type={type} defaultValue={value} onChange={onChange} className={styles["input"]} />
         </div>
     );
 }

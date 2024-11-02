@@ -83,7 +83,7 @@ const LoginProprietarioServico = () => {
                             type="submit" 
                             size={170}
                             colorPreset="yellow"
-                            hoverPreset="blue"
+                            hoverPreset="darkBlue"
                         >
                         Entrar
                         </Botao>

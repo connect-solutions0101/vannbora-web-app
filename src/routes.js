@@ -13,12 +13,14 @@ function Rotas() {
     return (
         <BrowserRouter>
           <Routes>
-            <Route path="/cadastro" element={<CadastroProprietarioServico />} />
+            <Route path="/" element={<LoginProprietarioServico />} />
             <Route path="/login" element={<LoginProprietarioServico />} />
+            <Route path="/cadastro" element={<CadastroProprietarioServico />} />
             <Route path="/escolas" element={<TelaListagemEscolas />} />
             <Route path="/alunos" element={<TelaListagemAlunos />} />
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/test" element={<Test />} />
+            <Route path="/download-csv" element={<Test />} />
             <Route path="/escolas/cadastro" element={<CadastroEscola />} />
           </Routes>
         </BrowserRouter>
