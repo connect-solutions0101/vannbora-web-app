@@ -11,12 +11,9 @@
 
 .input{
     height: 32px;
-    border: 1px solid #0D21A1;
-    border-radius: 7px;
     padding: 0 4px;
     font-family: "InterMedium";
     font-size: 14px;
-    color: #011638;
     background-color: transparent;
 }
 

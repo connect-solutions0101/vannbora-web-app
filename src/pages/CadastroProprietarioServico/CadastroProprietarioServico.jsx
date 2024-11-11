@@ -65,6 +65,7 @@ const CadastroProprietarioServico = () => {
                                 label="Nome"
                                 value={nome}
                                 onChange={(e) => handleInputChange(e, setNome)}
+                                styleNumber={1}
                             />
                             
                             <Input
@@ -72,6 +73,7 @@ const CadastroProprietarioServico = () => {
                                 label="Sobrenome"
                                 value={sobrenome}
                                 onChange={(e) => handleInputChange(e, setSobrenome)}
+                                styleNumber={1}
                             />
                         </div>
                         
@@ -81,6 +83,7 @@ const CadastroProprietarioServico = () => {
                                 label="Email"
                                 value={email}
                                 onChange={(e) => handleInputChange(e, setEmail)}
+                                styleNumber={1}
                             />
 
                             <Input
@@ -88,6 +91,7 @@ const CadastroProprietarioServico = () => {
                                 label="CPF"
                                 value={cpf}
                                 onChange={(e) => handleInputChange(e, setCpf)}  
+                                styleNumber={1}
                             />
                         </div>
                         <div className={styles["inputs"]}>
@@ -96,6 +100,7 @@ const CadastroProprietarioServico = () => {
                                 label="Senha"
                                 value={senha}
                                 onChange={(e) => handleInputChange(e, setSenha)}
+                                styleNumber={1}
                             />
                             <Radio
                                 label="Tipo de usuário"
@@ -103,6 +108,7 @@ const CadastroProprietarioServico = () => {
                                 values={["USER", "ADMIN"]}
                                 name="role"
                                 onChange={(e) => handleInputChange(e, setRole)}
+                                styleNumber={1}
                             />
                         </div>
                         

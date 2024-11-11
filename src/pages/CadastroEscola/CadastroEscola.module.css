@@ -10,7 +10,7 @@
 }
 .container {
   height: 100vh;
-  width: 1092px;
+  width: 65%;
   display: flex;
   justify-content: center;
   align-items: center;

@@ -1,0 +1,36 @@
+@font-face {
+    font-family: 'PoppinsBold';
+    src: url('../../utils/fonts/Poppins/Poppins-Bold.ttf') format('truetype');
+}
+
+.container{
+    display: flex;
+}
+
+.text{
+    font-family: 'PoppinsBold', sans-serif;
+}
+
+.light .text{
+    color: #0D21A1;
+}
+
+.dark .text{
+    color: #011638;
+}
+
+.small{
+    height: 25px;
+}
+
+.small .text{
+    font-size: 10px;
+}
+
+.big{
+    height: 36px;
+}
+
+.big .text{
+    font-size: 16px;
+}

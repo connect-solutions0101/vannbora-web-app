@@ -94,74 +94,83 @@ const CadastroEscola = () => {
           <div className={styles.inputs}>
             <Input
               type="text"
-              label={"Nome da escola"}
+              placeholder={"Nome da escola"}
               size={280}
               onChange={(e) => atualizarPropriedade(e, "nome")}
               value={painelEscola.nome}
+              styleNumber={5}
             />
             <Input
               type="text"
-              label={"Telefone da escola"}
+              placeholder={"Telefone da escola"}
               size={280}
               onChange={(e) => atualizarPropriedade(e, "telefone")}
               value={painelEscola.telefone}
+              styleNumber={5}
             />
           </div>
           <div className={styles.inputs}>
             <Input
               type="text"
-              label={"Representante"}
+              placeholder={"Representante"}
               size={280}
               onChange={(e) => atualizarPropriedade(e, "nomeResponsavel")}
               value={painelEscola.nomeResponsavel}
+              styleNumber={5}
             />
             <Input
               type="text"
-              label={"Tel representante"}
+              placeholder={"Tel representante"}
               size={280}
               onChange={(e) => atualizarPropriedade(e, "telefoneResponsavel")}
               value={painelEscola.telefoneResponsavel}
+              styleNumber={5}
             />
           </div>
           <div className={styles.inputs}>
             <div className={styles.doubleInput}>
               <Input
                 type="text"
-                label={"CEP"}
+                placeholder={"CEP"}
                 size={130}
                 onChange={(e) => atualizarPropriedade(e, "endereco.cep")}
                 value={painelEscola.endereco.cep}
+                styleNumber={5}
               />
               <Input
                 type="text"
-                label={"Nº"}
+                placeholder={"Nº"}
                 size={130}
                 onChange={(e) => atualizarPropriedade(e, "endereco.numero")}
                 value={painelEscola.endereco.numero}
+                styleNumber={5}
               />
             </div>
             <Input
               type="text"
-              label={"Logradouro (Rua)"}
+              placeholder={"Logradouro (Rua)"}
               size={280}
               onChange={(e) => atualizarPropriedade(e, "endereco.logradouro")}
               value={painelEscola.endereco.logradouro}
+              styleNumber={5}
             />
           </div>
           <div className={styles.inputs}>
             <Input
               type="text"
-              label={"Cidade"}
+              placeholder={"Cidade"}
               size={280}
               onChange={(e) => atualizarPropriedade(e, "endereco.cidade")}
               value={painelEscola.endereco.cidade}
+              styleNumber={5}
             />
             <Input
               type="text"
-              label={"Bairro"}
+              placeholder={"Bairro"}
               size={280}
               onChange={(e) => atualizarPropriedade(e, "endereco.bairro")}
               value={painelEscola.endereco.bairro}
+              styleNumber={5}
             />
           </div>
           <div className={styles["botoes"]}>

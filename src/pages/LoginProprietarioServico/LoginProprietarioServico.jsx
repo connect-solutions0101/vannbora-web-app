@@ -66,6 +66,7 @@ const LoginProprietarioServico = () => {
                                 label="Email"
                                 value={email}
                                 onChange={(e) => handleInputChange(e, setEmail)}
+                                styleNumber={1}
                             />
 
                         </div>
@@ -75,6 +76,7 @@ const LoginProprietarioServico = () => {
                                 label="Senha"
                                 value={senha}
                                 onChange={(e) => handleInputChange(e, setSenha)}
+                                styleNumber={1}
                             />
                             
                         </div>

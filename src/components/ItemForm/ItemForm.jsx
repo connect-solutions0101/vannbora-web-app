@@ -55,13 +55,15 @@ function ItemForm({endpoint, setPainelState, painelState}) {
                             size={176}
                             onChange={(e) => atualizarPropriedade(e, "nome")}
                             value={painelState.nome}
-                        />
+                            styleNumber={1}
+                            />
                         <Input
                             type="text"
                             label={"Telefone da escola"} 
                             size={176}
                             onChange={(e) => atualizarPropriedade(e, "telefone")}
                             value={painelState.telefone}
+                            styleNumber={1}
                         />
                     </div>
                     <div className={styles.inputs}>
@@ -71,6 +73,7 @@ function ItemForm({endpoint, setPainelState, painelState}) {
                             size={176}
                             onChange={(e) => atualizarPropriedade(e, "nomeResponsavel")}
                             value={painelState.nomeResponsavel}
+                            styleNumber={1}
                         />
                         <Input
                             type="text"
@@ -78,6 +81,7 @@ function ItemForm({endpoint, setPainelState, painelState}) {
                             size={176}
                             onChange={(e) => atualizarPropriedade(e, "telefoneResponsavel")}
                             value={painelState.telefoneResponsavel}
+                            styleNumber={1}
                         />
                     </div>
                     <div className={styles.inputs}>
@@ -88,6 +92,7 @@ function ItemForm({endpoint, setPainelState, painelState}) {
                                 size={84}
                                 onChange={(e) => atualizarPropriedade(e, "endereco.cep")}
                                 value={painelState.endereco.cep}
+                                styleNumber={1}
                             />
                             <Input
                                 type="text"
@@ -95,6 +100,7 @@ function ItemForm({endpoint, setPainelState, painelState}) {
                                 size={84}
                                 onChange={(e) => atualizarPropriedade(e, "endereco.numero")}
                                 value={painelState.endereco.numero}
+                                styleNumber={1}
                             />
                         </div>
                         <Input
@@ -103,6 +109,7 @@ function ItemForm({endpoint, setPainelState, painelState}) {
                             size={176}
                             onChange={(e) => atualizarPropriedade(e, "endereco.logradouro")}
                             value={painelState.endereco.logradouro}
+                            styleNumber={1}
                         />                        
                     </div>
                     <div className={styles.inputs}>
@@ -112,6 +119,7 @@ function ItemForm({endpoint, setPainelState, painelState}) {
                             size={176}
                             onChange={(e) => atualizarPropriedade(e, "endereco.cidade")}
                             value={painelState.endereco.cidade}
+                            styleNumber={1}
                         />
                         <Input
                             type="text"
@@ -119,6 +127,7 @@ function ItemForm({endpoint, setPainelState, painelState}) {
                             size={176}
                             onChange={(e) => atualizarPropriedade(e, "endereco.bairro")}
                             value={painelState.endereco.bairro}
+                            styleNumber={1}
                         />
                     </div>
                 </form>
