@@ -7,7 +7,6 @@
     display: flex;
     justify-content: center;
     align-items: center;
-    gap: 10px;
     margin: 20px 0;
     position: relative;
 }
@@ -18,13 +17,14 @@
     align-items: center;
     justify-content: center;
     position: relative;
+    z-index: 1;
 }
 
 .item > span{
     font-family: 'InterMedium';
     font-size: 14px;
     color: #000;
-    cursor: default
+    cursor: default;
 }
 
 .item:nth-child(1) .elipse::before{
@@ -38,6 +38,7 @@
     display: flex;
     justify-content: center;
     align-items: center;
+    background-color: #fff;
     border: 2px solid #0D21A1;
     position: relative;
     cursor: pointer;
@@ -56,13 +57,37 @@
     cursor: pointer;
 }
 
-/* .elipse::before {
-    content: '';
-    position: absolute;
-    top: 50%;
-    left: -50%;
-    width: 50%;
+.elipse{
+    z-index: 2;
+}
+
+.line{
+    width: 50px;
+    height: 2px;
+    margin-bottom: 17px;
+    background-color: blue;
+    position: relative;
+    z-index: 0;
+}
+
+.line::before {
+    content: "";
+    width: 50px;
     height: 2px;
     background-color: #0D21A1;
-    z-index: -1;
-} */
+    position: absolute;
+    /* top: 50%; */
+    right: 50px;
+    z-index: 0;
+}
+
+.line::after {
+    content: "";
+    width: 50px;
+    height: 2px;
+    background-color: #0D21A1;
+    position: absolute;
+    /* top: 50%; */
+    right: -50px;
+    z-index: 0;
+}
