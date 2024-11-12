@@ -1,10 +1,10 @@
 import React from "react";
-import styles from "./NextLink.module.css"
+import styles from "./PreviousLink.module.css"
 import classNames from "classnames";
-import { IoIosArrowForward } from "react-icons/io";
+import { IoIosArrowBack } from "react-icons/io";
 
-const NextLink = ({size, color, onClickFunction}) => {  
-    let scale = size === "small" ? 15 : 26;    
+const PreviousLink = ({size, color, onClickFunction}) => {
+    let scale = size === "small" ? 15 : 26;
     let colorPreset = color === "light" ? "#0D21A1" : "#011638";
 
     const classes = classNames({
@@ -15,10 +15,10 @@ const NextLink = ({size, color, onClickFunction}) => {
 
     return (
         <div className={classes} onClick={onClickFunction}>
-            <span className={styles["text"]}>Próximo</span>
-            <IoIosArrowForward size={scale} color={colorPreset}/>
+            <IoIosArrowBack size={scale} color={colorPreset}/>
+            <span className={styles["text"]}>Anterior</span>
         </div>
     )
 }
 
-export default NextLink;
+export default PreviousLink;

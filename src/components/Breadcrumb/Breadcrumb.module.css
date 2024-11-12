@@ -1,0 +1,68 @@
+@font-face {
+    font-family: 'InterMedium';
+    src: url('../../utils/fonts/Inter/Inter_18pt-Medium.ttf') format('truetype');
+}
+
+.breadcrumb{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 10px;
+    margin: 20px 0;
+    position: relative;
+}
+
+.item{
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+}
+
+.item > span{
+    font-family: 'InterMedium';
+    font-size: 14px;
+    color: #000;
+    cursor: default
+}
+
+.item:nth-child(1) .elipse::before{
+    display: none;
+}
+
+.uncompleted .elipse{
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    border: 2px solid #0D21A1;
+    position: relative;
+    cursor: pointer;
+}
+
+.completed .elipse{
+    width: 54px;
+    height: 54px;
+    border-radius: 50%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    background-color: #0D21A1;
+    border: 2px solid #0D21A1;
+    position: relative;
+    cursor: pointer;
+}
+
+/* .elipse::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: -50%;
+    width: 50%;
+    height: 2px;
+    background-color: #0D21A1;
+    z-index: -1;
+} */
