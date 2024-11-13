@@ -7,6 +7,7 @@ import TelaListagemEscolas from "./pages/TelaListagemEscolas/TelaListagemEscolas
 import TelaListagemAlunos from "./pages/TelaListagemAlunos/TelaListagemAlunos";
 import Dashboard from "./pages/Dashboard/Dashboard";
 import CadastroEscola from "./pages/CadastroEscola/CadastroEscola"
+import CadastroDependente from "./pages/CadastroDependente/CadastroDependente"
 
 
 function Rotas() {
@@ -22,6 +23,7 @@ function Rotas() {
             <Route path="/test" element={<Test />} />
             <Route path="/download-csv" element={<Test />} />
             <Route path="/escolas/cadastro" element={<CadastroEscola />} />
+            <Route path="/dependentes/cadastro" element={<CadastroDependente />} />
           </Routes>
         </BrowserRouter>
     );
