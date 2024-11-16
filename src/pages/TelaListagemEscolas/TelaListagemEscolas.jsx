@@ -27,7 +27,6 @@ const TelaListagemEscolas = () => {
     }
 
     function handleEditEscola() {        
-        console.log(painelEscola);
         api.put("escolas/"+painelEscola.id,
             painelEscola,
             {

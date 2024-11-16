@@ -1,6 +1,7 @@
 import React from "react";
 import { useEffect } from "react";
 import GenericMainPage from "../../components/GenericMainPage/GenericMainPage";
+import ItemFormAluno from "../../components/ItemFormAluno/ItemFormAluno";
 import Cookies from 'js-cookie';
 import api from "../../api";
 
@@ -13,9 +14,7 @@ const TelaListagemAlunos = () => {
                     Authorization: `Bearer ${Cookies.get('token')}`
                 }
             }
-        ).then((response) => {
-            console.log(response.data);
-            
+        ).then((response) => {          
             setDependentes(response.data);
         }
         ).catch((error) => {
@@ -28,7 +27,43 @@ const TelaListagemAlunos = () => {
     }, []);
 
     const [dependentes, setDependentes] = React.useState([]);
-    const [painelDependente, setPainelDependente] = React.useState({});
+    const [painelDependente, setPainelDependente] = React.useState({
+        id: "",
+        nome: "",
+        dataNascimento: "",
+        turno: "",
+        condicao: "",
+        turma: "",
+        escolaId: "",
+        responsavel1: {
+            id: "",
+            nome: "",
+            telefone: "",
+            email: "",
+        },
+        responsavel2: {
+            id: "",
+            nome: "",
+            telefone: "",
+            email: "",
+        },
+        endereco: {
+            id: "",
+            logradouro: "",
+            numero: "",
+            complemento: "",
+            bairro: "",
+            cidade: "",
+            estado: "",
+            cep: "",
+        },
+        fatura: {
+            id: "",
+            valor: "",
+            dataVencimento: "",
+            status: "",
+        }
+    });
 
     return (
         <>
@@ -39,7 +74,10 @@ const TelaListagemAlunos = () => {
                 secondLabel={"Responsável:"} 
                 endpoint={"dependentes"}
                 setPainel={setPainelDependente}
-                painel={painelDependente}>   
+                painel={painelDependente}>
+                <ItemFormAluno 
+                    setPainelState={setPainelDependente} 
+                    painelState={painelDependente}/>
             </GenericMainPage>
         </>
     );
