@@ -2,7 +2,16 @@ import React from 'react';
 import Cookies from 'js-cookie';
 import Input from '../../components/Input/Input';
 import NextLink from '../../components/NextLink/NextLink';
+import PreviousLink from '../../components/PreviousLink/PreviousLink';
 import Botao from '../../components/Botao/Botao';
+import Breadcrumb from '../../components/Breadcrumb/Breadcrumb';
+import { HiOutlineUsers } from "react-icons/hi";
+import { HiOutlineUser } from "react-icons/hi";
+import { HiOutlineLocationMarker } from "react-icons/hi";
+import { useState } from 'react';
+import { useNavigate } from 'react-router-dom';
+import ItemFormAluno from '../../components/ItemFormAluno/ItemFormAluno';
+import SelectItems from '../../components/SelectItems/SelectItems';
 
 function Test() {
 
@@ -39,11 +48,39 @@ function Test() {
     //     }
     // };
 
+    const navigate = useNavigate();
+
+    const [breadcrumbItems, setBreadcrumbItems] = useState([
+        {
+          icon: <HiOutlineUsers size={30} color="#fff" />,
+          onClick: () => navigate("/responsaveis"),
+          label: "Responsável",
+          state: "completed",
+        },
+        {
+          icon: <HiOutlineUser size={30} color="#3F3F46" />,
+          onClick: () => navigate("/alunos"),
+          label: "Aluno",
+          state: "uncompleted",
+        },
+        {
+          icon: <HiOutlineLocationMarker size={30} color="#3F3F46" />,
+          onClick: () => navigate("/endereco"),
+          label: "Endereço",
+          state: "uncompleted",
+        }
+      ]);
+
     return (
-        <>
-            {/* <Input type="text" label="" placeholder="Digite seu nome" styleNumber={5}/> */}
-            <NextLink size={"small"} color={"light"}/>
-        </>
+        <div style={{width:"100vw", height:"100vh", display:"flex", justifyContent:"center", alignItems:"center"}}>
+            {/* <NextLink size={"small"} color={"light"}/>
+            <PreviousLink size={"small"} color={"light"}/> */}
+
+            {/* <Breadcrumb items={breadcrumbItems} /> */}
+
+            <ItemFormAluno />
+            {/* <SelectItems items={[{id:1, nome:"Escola 1"}, {id:2, nome:"Escola 2"}, {id:3, nome:"Escola 3"}]} label={"Escola"} size={176} styleNumber={1} /> */}
+        </div>
     );
 }
 export default Test;
