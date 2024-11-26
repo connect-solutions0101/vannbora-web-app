@@ -2,8 +2,7 @@ import React from "react";
 import styles from "./Responsaveis.module.css";
 import Input from "../../Input/Input";
 
-function Responsaveis({ responsaveisRef }) {
-    
+const Responsaveis = ({responsaveisRef}) => {    
     return (
             <div className={styles["inputs"]}>
                 <Input
@@ -11,20 +10,24 @@ function Responsaveis({ responsaveisRef }) {
                     label={"Nome Completo"}
                     size={176}
                     styleNumber={1}
-                    ref={(el) => (responsaveisRef.current.nome = el)}
+                    value={responsaveisRef.current.nome}
+                    onChange={(e) => responsaveisRef.current.nome = e.target.value}
                 />
                 <Input
                     type="text"
                     label={"Telefone"}
                     size={176}
                     styleNumber={1}
-                    ref={(el) => (responsaveisRef.current.telefone = el)}
+                    value={responsaveisRef.current.telefone}
+                    onChange={(e) => responsaveisRef.current.telefone = e.target.value}
                 />
                 <Input
                     type="text"
                     label={"Parentesco"}
                     size={176}
                     styleNumber={1}
+                    value={responsaveisRef.current.parentesco}
+                    onChange={(e) => responsaveisRef.current.parentesco = e.target.value}
                 />
             </div>
     );

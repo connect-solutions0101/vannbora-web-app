@@ -1,8 +1,7 @@
-import React from "react";
+import React, {forwardRef} from "react";
 import styles from "./SelectItems.module.css";
 
-function SelectItems({ items, label, size, styleNumber, ref }) {
-
+const SelectItems = forwardRef(({ label, items, styleNumber, size, selected, onChange }, ref) => {
     let color = "#141414";
     let border = "1px solid #141414";
     let borderRadius = "7px"
@@ -35,6 +34,8 @@ function SelectItems({ items, label, size, styleNumber, ref }) {
             border = "1px solid #E21F1F";
             borderRadius = "4px";
             break;
+        default:
+            break;
     }
 
 
@@ -47,8 +48,10 @@ function SelectItems({ items, label, size, styleNumber, ref }) {
                 className={styles.select}
                 style={{ width: `${size}px`, color: color, border: border, borderRadius: borderRadius }}
                 ref={ref}
+                onChange={onChange}
+                defaultValue={selected !== undefined ? selected : ""}
             >
-                <option value="" disabled selected>
+                <option disabled>
                     Selecione
                 </option>
                 {items.map((item) => (
@@ -59,6 +62,6 @@ function SelectItems({ items, label, size, styleNumber, ref }) {
             </select>
         </div>
     );
-}
+})
 
 export default SelectItems;
