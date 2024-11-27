@@ -1,7 +1,7 @@
-import React from "react";
+import React, { forwardRef } from "react";
 import styles from "./Input.module.css";
 
-const Input = ({ size, type, label, value, placeholder, onChange, styleNumber }) => {
+const Input = forwardRef(({ size, type, label, value, placeholder, onChange, styleNumber}, ref) => {
     let color = "#141414";
     let border = "1px solid #141414";
     let borderRadius = "7px"
@@ -39,9 +39,16 @@ const Input = ({ size, type, label, value, placeholder, onChange, styleNumber })
     return (
         <div style={{ width: (size || 224) + "px"}} className={styles["div"]}>
             <label className={styles["label"]}>{label}</label>
-            <input style={{color:color, border:border, borderRadius:borderRadius}} type={type} defaultValue={value} onChange={onChange} placeholder={placeholder} className={styles["input"]} />
+            <input 
+                style={{color:color, border:border, borderRadius:borderRadius}} 
+                type={type} 
+                defaultValue={value} 
+                onChange={onChange} 
+                placeholder={placeholder} 
+                className={styles["input"]}
+                ref={ref} />
         </div>
     );
-}
+})
 
 export default Input;

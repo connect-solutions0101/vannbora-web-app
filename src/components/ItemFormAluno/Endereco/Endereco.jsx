@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Endereco.module.css";
 import Input from "../../Input/Input";
 
-function Endereco({enderecoRef}) {
+const Endereco = ({enderecoRef}) => {
     return (
         <div className={styles['container']}>
             <div className={styles['inputs']}>

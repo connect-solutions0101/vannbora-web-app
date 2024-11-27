@@ -3,8 +3,7 @@ import styles from "./ItemForm.module.css";
 import Input from "../Input/Input";
 import { RiCloseCircleLine } from "react-icons/ri";
 
-function ItemForm({endpoint, setPainelState, painelState}) {
-
+const ItemForm = ({painelState, setPainelState}) => {
         const atualizarPropriedade = (e, prop) => {
             const props = prop.split(".");
             if(props.length === 1){
