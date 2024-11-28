@@ -12,15 +12,17 @@ const Breadcrumb = ({ items }) => {
             let itemClasses = classNames(styles["item"], itemClass);
 
             return (
-                <div className={itemClasses}>
-                    <div key={index} className={styles.elipse} onClick={item.onClick}>
-                        {item.icon}
+                <>
+                    <div className={itemClasses}>
+                        <div key={index} className={styles.elipse} onClick={item.onClick}>
+                            {item.icon}
+                        </div>
+                        <span className={styles.text}>
+                            {item.label}
+                        </span>
                     </div>
-                    <span>
-                        {item.label}
-                    </span>
-                    {/* {index < items.length - 1 && <div className={styles.line}></div>} */}
-                </div>
+                    {index < items.length - 1 && <div className={styles.line}></div>}
+                </>
             );
         })}
         </div>

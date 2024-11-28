@@ -1,8 +1,9 @@
 import Cookies from "js-cookie";
 
-export const transformarData = (dataString) => {
-    const data = new Date(dataString);
-    return data.toLocaleDateString("pt-BR", {
+  export const transformarData = (dataString) => {
+    const [year, month, day] = dataString.split('-').map(Number);
+    const data = new Date(Date.UTC(year, month - 1, day));
+    return new Date(data.getTime() + data.getTimezoneOffset() * 60000).toLocaleDateString("pt-BR", {
       day: "2-digit",
       month: "2-digit",
       year: "numeric",
