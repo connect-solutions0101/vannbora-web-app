@@ -54,7 +54,7 @@ const SelectItems = forwardRef(({ label, items, styleNumber, size, selected, onC
                 <option disabled>
                     Selecione
                 </option>
-                {items.map((item) => (
+                {items !== undefined && items.map((item) => (
                 <option key={item.id} value={item.id}>
                     {item.nome}
                 </option>

@@ -1,5 +1,6 @@
 import React from "react";
 import { useEffect, useRef, useState } from "react";
+import { useNavigate } from "react-router-dom";
 import GenericMainPage from "../../components/GenericMainPage/GenericMainPage";
 import ItemFormAluno from "../../components/ItemFormAluno/ItemFormAluno";
 import Cookies from 'js-cookie';
@@ -8,6 +9,8 @@ import global, { transformarData } from "../../utils/global";
 import { toast } from "react-toastify";
 
 const TelaListagemAlunos = () => {  
+
+    const navigate = useNavigate();
     
     const [dependentes, setDependentes] = useState([]);
     const [painelDependente, setPainelDependente] = useState({
@@ -125,7 +128,8 @@ const TelaListagemAlunos = () => {
                 endpoint={"dependentes/fullPorId"}
                 setPainel={setPainelDependente}
                 painel={painelDependente}
-                editFunction={handleEditDependente}>
+                editFunction={handleEditDependente}
+                cadastrarFunction={() => navigate("/alunos/cadastro")}>
                 <ItemFormAluno 
                     setPainelState={setPainelDependente} 
                     painelState={painelDependente}

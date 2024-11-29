@@ -41,7 +41,6 @@
     background-color: #fff;
     border: 2px solid #0D21A1;
     position: relative;
-    cursor: pointer;
 }
 
 .completed .elipse{
@@ -54,7 +53,6 @@
     background-color: #0D21A1;
     border: 2px solid #0D21A1;
     position: relative;
-    cursor: pointer;
 }
 
 .elipse{
