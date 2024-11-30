@@ -1,4 +1,4 @@
-import React, {forwardRef} from "react";
+import React, {forwardRef, useEffect} from "react";
 import styles from "./SelectItems.module.css";
 
 const SelectItems = forwardRef(({ label, items, styleNumber, size, selected, onChange }, ref) => {
@@ -38,6 +38,10 @@ const SelectItems = forwardRef(({ label, items, styleNumber, size, selected, onC
             break;
     }
 
+    useEffect(() => {
+        onChange({target: {value: selected}});
+    }, []);
+
 
     return (
         <div className={styles.container}>
@@ -51,7 +55,7 @@ const SelectItems = forwardRef(({ label, items, styleNumber, size, selected, onC
                 onChange={onChange}
                 defaultValue={selected !== undefined ? selected : ""}
             >
-                <option disabled>
+                <option value={0} disabled>
                     Selecione
                 </option>
                 {items !== undefined && items.map((item) => (

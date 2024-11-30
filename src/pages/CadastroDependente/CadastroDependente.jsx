@@ -51,13 +51,18 @@ const CadastroDependente = () => {
     },
   ]);
 
-  const responsavel1 = useRef({});
-  const responsavel2 = useRef({});
+  const responsavel1 = useRef({
+    endereco: {},
+  });
+  const responsavel2 = useRef({
+    endereco: {},
+  });
   const aluno = useRef({});
-  const endereco = useRef({});
   const fatura = useRef({});
 
   const [escolas, setEscolas] = useState([]);
+  const [dependente, setDependente] = useState({});
+  const [shouldCallApi, setShouldCallApi] = useState(false);
 
   function getSteps() {
     switch (currentStep) {
@@ -79,7 +84,7 @@ const CadastroDependente = () => {
       case 1:
         return <Aluno alunoRef={aluno} escolas={escolas} />;
       case 2:
-        return <Endereco enderecoRef={endereco} />;
+        return <Endereco responsavelRef={responsavel1} />;
       case 3:
         return <Fatura faturaRef={fatura} />;
     }
@@ -220,32 +225,57 @@ const CadastroDependente = () => {
     setBreadcrumbItems(getBreadcrumbItems());
   }, [currentStep]);
 
-  const handleInputChange = (event, setStateFunction) => {
-    setStateFunction(event.target.value);
-  };
-
-  const handleSubmit = (event) => {
-    event.preventDefault();
-    handleSave();
-  };
+  useEffect(() => {
+    if (shouldCallApi) {
+      handleSave();
+      setShouldCallApi(false);
+    }
+  }, [setDependente, shouldCallApi]);
 
   const handleCancel = () => {
     navigate("/alunos");
   };
 
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    setDependente({
+        nome: aluno.current.nome,
+        dataNascimento: aluno.current.dataNascimento.split('/').reverse().join('-'),
+        turno: aluno.current.turno,
+        condicao: aluno.current.condicao,
+        turma: aluno.current.turma,
+        escolaId: aluno.current.escolaId,
+        responsaveis: [
+        {
+            responsavel: responsavel1.current,
+            tipoResponsavel: "FINANCEIRO"
+        },
+        (responsavel2.current === null) ? null :
+        {
+            responsavel: responsavel2.current,
+            tipoResponsavel: "PADRAO"
+        }
+        ],
+        fatura: fatura.current,
+    });
+    setShouldCallApi(true);
+  };
+
   const handleSave = async () => {
+    console.log(dependente);
+    
     api
-      .post(`dependente`)
-      .then((r) => {
-        console.log(r);
-        toast.success("Dependente cadastrado com sucesso!");
-        navigate("/dependentes/cadastro");
+      .post("dependentes/full/"+Cookies.get("id"), dependente, {
+        headers: {
+          Authorization: `Bearer ${Cookies.get("token")}`,
+        },
       })
-      .catch((e) => {
-        console.error(e);
-        toast.error(
-          "Ocorreu um erro ao salvar os dados, por favor, tente novamente."
-        );
+      .then((response) => {
+        toast.success("Aluno cadastrado com sucesso!");
+        navigate("/alunos");
+      })
+      .catch((error) => {
+        console.log(error);
       });
   };
 
@@ -295,7 +325,7 @@ const CadastroDependente = () => {
                   size={140}
                   colorPreset="blue"
                   hoverPreset="yellow"
-                  onClick={handleSave}
+                  onClick={handleSubmit}
                 >
                   Finalizar
                 </Botao>

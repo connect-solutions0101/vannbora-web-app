@@ -43,7 +43,7 @@ const Aluno = ({alunoRef, escolas}) => {
                             placeholder={"Escola"}
                             size={279}
                             styleNumber={1}
-                            selected={alunoRef.current.escolaId}
+                            selected={0}
                             onChange={(e) => alunoRef.current.escolaId = e.target.value}
                         />
                         <Input
@@ -61,7 +61,7 @@ const Aluno = ({alunoRef, escolas}) => {
                             placeholder={"Turno"}
                             size={279}
                             styleNumber={1}
-                            selected={alunoRef.current.turno}
+                            selected={0}
                             onChange={(e) => alunoRef.current.turno = e.target.value}
                         />
                         <Input

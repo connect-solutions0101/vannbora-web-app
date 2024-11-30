@@ -76,12 +76,12 @@ const CadastroEscola = () => {
     ).then((response) => {
         setPainelEscola(response.data);
         toast.success("Escola cadastrada com sucesso!");
+        navigate("/escolas");
     }
     ).catch((error) => {
         toast.error("Houve um problema no cadastro da escola, por favor, tente novamente.");
         console.log(error);
     });
-    navigate("/escolas");
   }
 
   return (

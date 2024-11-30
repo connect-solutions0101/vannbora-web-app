@@ -5,7 +5,7 @@ import GenericMainPage from "../../components/GenericMainPage/GenericMainPage";
 import ItemFormAluno from "../../components/ItemFormAluno/ItemFormAluno";
 import Cookies from 'js-cookie';
 import api from "../../api";
-import global, { transformarData } from "../../utils/global";
+import { transformarData } from "../../utils/global";
 import { toast } from "react-toastify";
 
 const TelaListagemAlunos = () => {  
