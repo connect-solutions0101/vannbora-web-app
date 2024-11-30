@@ -1,0 +1,11 @@
+@font-face {
+    font-family: 'InterMedium';
+    src: url('../../../utils/fonts/Inter/Inter_18pt-Medium.ttf') format('truetype');
+}
+
+.formLabel{
+    margin-bottom: 8px !important;
+    font-size: 18px;
+    font-family: 'InterMedium';
+    font-weight: 200;
+}
