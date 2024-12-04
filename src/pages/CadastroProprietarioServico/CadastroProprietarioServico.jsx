@@ -3,6 +3,7 @@ import styles from "./CadastroProprietarioServico.module.css";
 import api from "../../api";
 import logotipo from "../../utils/assets/Logotipo.svg";
 import Input from "../../components/Input/Input";
+import InputMask from "react-input-mask";
 import Radio from "../../components/Radio/Radio";
 import Botao from "../../components/Botao/Botao";
 import { toast } from "react-toastify";
@@ -86,13 +87,20 @@ const CadastroProprietarioServico = () => {
                                 styleNumber={1}
                             />
 
-                            <Input
-                                type="text"
-                                label="CPF"
+                            <InputMask
+                                mask="999.999.999-99"
+                                maskChar={null}
                                 value={cpf}
-                                onChange={(e) => handleInputChange(e, setCpf)}  
-                                styleNumber={1}
-                            />
+                                onChange={(e) => handleInputChange(e, setCpf)}
+                            >
+                                {() =>
+                                    <Input
+                                        type="text"
+                                        label="CPF"
+                                        styleNumber={1}
+                                    />
+                                }
+                            </InputMask>
                         </div>
                         <div className={styles["inputs"]}>
                             <Input

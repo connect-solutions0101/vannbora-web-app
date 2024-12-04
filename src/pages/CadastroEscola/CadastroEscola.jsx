@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import styles from "./CadastroEscola.module.css";
 import Input from "../../components/Input/Input";
+import InputMask from "react-input-mask";
 import Botao from "../../components/Botao/Botao";
 import { useNavigate } from "react-router-dom";
 import api from "../../api";
@@ -100,14 +101,21 @@ const CadastroEscola = () => {
               value={painelEscola.nome}
               styleNumber={5}
             />
-            <Input
-              type="text"
-              placeholder={"Telefone da escola"}
-              size={280}
-              onChange={(e) => atualizarPropriedade(e, "telefone")}
+            <InputMask  
+              mask="(99) 99999-9999"
+              maskChar={null}
               value={painelEscola.telefone}
-              styleNumber={5}
-            />
+              onChange={(e) => atualizarPropriedade(e, "telefone")}
+            >
+              {() =>
+                <Input
+                  type="text"
+                  placeholder={"Telefone"}
+                  size={280}
+                  styleNumber={5}
+                />
+              }
+            </InputMask>
           </div>
           <div className={styles.inputs}>
             <Input
@@ -118,27 +126,41 @@ const CadastroEscola = () => {
               value={painelEscola.nomeResponsavel}
               styleNumber={5}
             />
-            <Input
-              type="text"
-              placeholder={"Tel representante"}
-              size={280}
-              onChange={(e) => atualizarPropriedade(e, "telefoneResponsavel")}
+            <InputMask
+              mask="(99) 99999-9999"
+              maskChar={null}
               value={painelEscola.telefoneResponsavel}
-              styleNumber={5}
-            />
+              onChange={(e) => atualizarPropriedade(e, "telefoneResponsavel")}
+            >
+              {() =>
+                <Input
+                  type="text"
+                  placeholder={"Telefone do representante"}
+                  size={280}
+                  styleNumber={5}
+                />
+              }
+            </InputMask>
           </div>
           <div className={styles.inputs}>
             <div className={styles.doubleInput}>
-              <Input
-                type="text"
-                placeholder={"CEP"}
-                size={130}
-                onChange={(e) => atualizarPropriedade(e, "endereco.cep")}
+              <InputMask
+                mask="99999-999"
+                maskChar={null}
                 value={painelEscola.endereco.cep}
-                styleNumber={5}
-              />
+                onChange={(e) => atualizarPropriedade(e, "endereco.cep")}
+              >
+                {() =>
+                  <Input
+                    type="text"
+                    placeholder={"CEP"}
+                    size={130}
+                    styleNumber={5}
+                  />
+                }
+              </InputMask>
               <Input
-                type="text"
+                type="number"
                 placeholder={"Nº"}
                 size={130}
                 onChange={(e) => atualizarPropriedade(e, "endereco.numero")}

@@ -1,22 +1,30 @@
 import React from "react";
 import styles from "./Endereco.module.css";
 import Input from "../../Input/Input";
+import InputMask from "react-input-mask";
 
 const Endereco = ({enderecoRef}) => {
     return (
         <div className={styles['container']}>
             <div className={styles['inputs']}>
-                <Input
-                    label="CEP"
-                    type="text"
+                <InputMask
+                    mask="99999-999"
+                    maskChar={null}
                     value={enderecoRef.current.cep}
                     onChange={(e) => enderecoRef.current.cep = e.target.value}
-                    styleNumber={1}
-                    size={176}
-                />
+                >
+                    {() =>
+                        <Input
+                            label="CEP"
+                            type="text"
+                            styleNumber={1}
+                            size={176}
+                        />
+                    }
+                </InputMask>
                 <Input
                     label="Número"
-                    type="text"
+                    type="number"
                     value={enderecoRef.current.numero}
                     onChange={(e) => enderecoRef.current.numero = e.target.value}
                     styleNumber={1}

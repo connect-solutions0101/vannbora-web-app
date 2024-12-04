@@ -7,7 +7,7 @@ return (
         <div className={styles['container']}>
                 <Input
                     label="Valor da mensalidade (R$)"
-                    type="text"
+                    type="number"
                     value={faturaRef.current.valor}
                     onChange={(e) => faturaRef.current.valor = e.target.value}
                     styleNumber={1}
@@ -15,7 +15,7 @@ return (
                 />
                 <Input
                     label="Data do pagamento"
-                    type="text"
+                    type="number"
                     value={faturaRef.current.diaPagamento}
                     onChange={(e) => faturaRef.current.diaPagamento = e.target.value}
                     styleNumber={1}

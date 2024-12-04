@@ -1,13 +1,14 @@
 import React from "react";
 import styles from "./Fatura.module.css";
 import Input from "../../../components/Input/Input";
+import InputMask from "react-input-mask";
 
 const Fatura = ({faturaRef}) => {
 return (
         <div className={styles['container']}>
                 <Input
                     placeholder="Valor da mensalidade (R$)"
-                    type="text"
+                    type="number"
                     value={faturaRef.current.valor}
                     onChange={(e) => faturaRef.current.valor = e.target.value}
                     styleNumber={1}
@@ -15,7 +16,7 @@ return (
                 />
                 <Input
                     placeholder="Data do pagamento"
-                    type="text"
+                    type="number"
                     value={faturaRef.current.diaPagamento}
                     onChange={(e) => faturaRef.current.diaPagamento = e.target.value}
                     styleNumber={1}

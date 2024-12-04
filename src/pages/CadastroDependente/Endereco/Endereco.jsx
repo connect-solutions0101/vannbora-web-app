@@ -1,22 +1,30 @@
 import React from "react";
 import styles from "./Endereco.module.css";
 import Input from "../../../components/Input/Input";
+import InputMask from "react-input-mask";
 
 const Endereco = ({responsavelRef}) => {
     return (
         <div className={styles['container']}>
             <div className={styles['inputs']}>
-                <Input
-                    placeholder="CEP"
-                    type="text"
+                <InputMask
+                    mask="99999-999"
+                    maskChar={null}
                     value={responsavelRef.current.endereco.cep}
                     onChange={(e) => responsavelRef.current.endereco.cep = e.target.value}
-                    styleNumber={1}
-                    size={176}
-                />
+                >
+                    {() =>
+                        <Input
+                            placeholder="CEP"
+                            type="text"
+                            styleNumber={1}
+                            size={176}
+                        />
+                    }
+                </InputMask>
                 <Input
                     placeholder="Número"
-                    type="text"
+                    type="number"
                     value={responsavelRef.current.endereco.numero}
                     onChange={(e) => responsavelRef.current.endereco.numero = e.target.value}
                     styleNumber={1}
