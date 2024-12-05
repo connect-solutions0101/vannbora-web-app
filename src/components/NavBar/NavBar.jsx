@@ -31,7 +31,7 @@ const NavBar = () => {
 
                 <Botao size={150} onClick={
                     () => {
-                        alert("Clicou em Minhas Finanças");
+                        navigate("/dashboard");
                     }
                 }
                 colorPreset={"white"} hoverPreset={"yellow"}
