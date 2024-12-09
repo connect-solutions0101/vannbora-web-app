@@ -1,17 +1,49 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./Endereco.module.css";
 import Input from "../../Input/Input";
 import InputMask from "react-input-mask";
+import useViaCep from "../../../utils/useViaCep";
 
 const Endereco = ({enderecoRef}) => {
+
+    const [cep, setCep] = useState(enderecoRef.current.cep);
+    const { dados, erro, loading, buscarCep } = useViaCep();
+    const [updateKey, setUpdateKey] = useState(0); 
+
+    const handleBuscar = async () => {
+        if (cep.length === 8 && !isNaN(cep)) {
+            buscarCep(cep)
+        }
+    };
+
+    useEffect(() => {
+        if (dados && !erro) {
+            enderecoRef.current.cep = dados.cep || "";
+            enderecoRef.current.logradouro = dados.logradouro || "";
+            enderecoRef.current.bairro = dados.bairro || "";
+            enderecoRef.current.cidade = dados.localidade || "";
+            setUpdateKey((prevKey) => prevKey + 1);
+        } else {
+            console.error("Erro ao buscar o CEP:", erro);
+        }
+    }
+    , [dados, erro]);
+
+    useEffect(()=>{
+        if(cep.length === 8 && !isNaN(cep)){
+            handleBuscar()
+        }
+    },[cep])
+
+
     return (
-        <div className={styles['container']}>
+        <div className={styles['container']} key={updateKey}>
             <div className={styles['inputs']}>
                 <InputMask
                     mask="99999-999"
                     maskChar={null}
-                    value={enderecoRef.current.cep}
-                    onChange={(e) => enderecoRef.current.cep = e.target.value}
+                    value={cep}
+                    onChange={(e) => setCep(e.target.value.replace("-", ""))}
                 >
                     {() =>
                         <Input

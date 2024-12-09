@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./CadastroEscola.module.css";
 import Input from "../../components/Input/Input";
 import InputMask from "react-input-mask";
@@ -7,6 +7,7 @@ import { useNavigate } from "react-router-dom";
 import api from "../../api";
 import Cookies from 'js-cookie';
 import { toast } from "react-toastify";
+import useViaCep from "../../utils/useViaCep";
 
 const CadastroEscola = () => {
 
@@ -85,9 +86,42 @@ const CadastroEscola = () => {
     });
   }
 
+    const [cep, setCep] = useState(painelEscola.endereco.cep);
+    const { dados, erro, loading, buscarCep } = useViaCep();
+    const [updateKey, setUpdateKey] = useState(0); 
+
+    const handleBuscar = async () => {
+        if (cep.length === 8 && !isNaN(cep)) {
+            buscarCep(cep)
+        }
+    };
+
+    useEffect(() => {
+        if (dados && !erro) {
+            setPainelEscola((prevState) => ({
+                ...prevState,
+                endereco: {
+                    ...prevState.endereco,
+                    cep: dados.cep || "",
+                    logradouro: dados.logradouro || "",
+                    bairro: dados.bairro || "",
+                    cidade: dados.localidade || ""
+                }
+            }));
+            setUpdateKey((prevKey) => prevKey + 1);
+        } else {
+            console.error("Erro ao buscar o CEP:", erro);
+        }
+    }
+    , [dados, erro]);
+
+    useEffect(()=>{
+        handleBuscar()
+    },[cep])
+
   return (
     <div className={styles["fundo"]}>
-      <div className={styles["container"]}>
+      <div className={styles["container"]} key={updateKey}>
         <div className={styles["formulario"]} onSubmit={handleSave}>
           <h1>
             Cadastrar nova <span style={{ color: "#0D21A1" }}>Escola</span>
@@ -147,8 +181,8 @@ const CadastroEscola = () => {
               <InputMask
                 mask="99999-999"
                 maskChar={null}
-                value={painelEscola.endereco.cep}
-                onChange={(e) => atualizarPropriedade(e, "endereco.cep")}
+                value={cep}
+                onChange={(e) => setCep(e.target.value.replace("-", ""))}
               >
                 {() =>
                   <Input
