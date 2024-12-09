@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./ItemList.module.css";
 import CardItem from "../CardItem/CardItem";
 
-function ItemList({values, title, firstLabel, secondLabel, endpoint, setPainelState}) {
+function ItemList({values, title, firstLabel, secondLabel, endpoint, setPainelState, hasButton, buttonFunction}) {
 
     return (
             <div className={styles["container"]}>
@@ -15,6 +15,9 @@ function ItemList({values, title, firstLabel, secondLabel, endpoint, setPainelSt
                             endpoint={endpoint}
                             id={item.id}
                             setPainelState={setPainelState}
+                            hasButton={hasButton}
+                            buttonColor={item.ultimaFaturaPaga === "PAGO" ? "#50EB6C" : "#FF5459"}
+                            buttonFunction={() => buttonFunction(item.id, item.ultimaFaturaPaga)}
                         />
                     ))}
             </div>
