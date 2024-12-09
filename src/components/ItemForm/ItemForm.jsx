@@ -1,7 +1,9 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import styles from "./ItemForm.module.css";
 import Input from "../Input/Input";
+import InputMask from "react-input-mask";
 import { RiCloseCircleLine } from "react-icons/ri";
+import useViaCep from "../../utils/useViaCep";
 
 const ItemForm = ({painelState, setPainelState}) => {
         const atualizarPropriedade = (e, prop) => {
@@ -41,9 +43,36 @@ const ItemForm = ({painelState, setPainelState}) => {
                 }
             });
         };
-    
+
+        const [cep, setCep] = useState(painelState.endereco.cep);
+        const { dados, erro, loading, buscarCep } = useViaCep();
+        const [updateKey, setUpdateKey] = useState(0); 
+
+        const handleBuscar = async () => {
+            if (cep.length === 8 && !isNaN(cep)) {
+                buscarCep(cep)
+            }
+        };
+
+        useEffect(()=>{
+            handleBuscar()
+        },[cep])
+
+        useEffect(() => {
+            if (dados && !erro) {
+                painelState.endereco.cep = dados.cep || "";
+                painelState.endereco.logradouro = dados.logradouro || "";
+                painelState.endereco.bairro = dados.bairro || "";
+                painelState.endereco.cidade = dados.localidade || "";
+                setUpdateKey((prevKey) => prevKey + 1);
+            } else {
+                console.error("Erro ao buscar o CEP:", erro);
+            }
+        }
+        , [dados, erro]);
+        
         return (
-            <div className={styles["container"]}>
+            <div className={styles["container"]} key={updateKey}>
                 <RiCloseCircleLine className={styles.closeButton} onClick={resetarObj}/>
                 <form className={styles["formulario"]}>
                     <h1>Informações da <span style={{color:"#0D21A1"}}>escola</span></h1>
@@ -85,14 +114,21 @@ const ItemForm = ({painelState, setPainelState}) => {
                     </div>
                     <div className={styles.inputs}>
                         <div className={styles.doubleInput} style={{display:"flex"}}>
-                            <Input
-                                type="text"
-                                label={"CEP"}
-                                size={84}
-                                onChange={(e) => atualizarPropriedade(e, "endereco.cep")}
-                                value={painelState.endereco.cep}
-                                styleNumber={1}
-                            />
+                            <InputMask
+                                mask="99999-999"
+                                maskChar={null}
+                                value={cep}
+                                onChange={(e) => setCep(e.target.value.replace("-", ""))}
+                            >
+                                {() =>
+                                    <Input
+                                        label="CEP"
+                                        type="text"
+                                        styleNumber={1}
+                                        size={84}
+                                    />
+                                }
+                            </InputMask>
                             <Input
                                 type="text"
                                 label={"Nº"} 

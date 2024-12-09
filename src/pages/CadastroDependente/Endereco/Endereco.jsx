@@ -13,42 +13,35 @@ const Endereco = ({responsavelRef}) => {
     const [updateKey, setUpdateKey] = useState(0); 
 
     const handleBuscar = async () => {
-        console.log(cep)
         if (cep.length === 8 && !isNaN(cep)) {
             buscarCep(cep)
-            .then((response) => {
-                console.log(response); // Verifique se você está recebendo os dados esperados
-                if (response && !erro) {
-                    responsavelRef.current.endereco.logradouro = response.logradouro || "";
-                    responsavelRef.current.endereco.bairro = response.bairro || "";
-                    responsavelRef.current.endereco.cidade = response.localidade || "";
-                    setUpdateKey((prevKey) => prevKey + 1);
-                } else {
-                   
-                }
-            })
-            .catch((error) => {
-                console.error("Erro ao buscar o CEP:", error);
-                alert("Erro ao buscar o CEP. Tente novamente mais tarde.");
-            });
-        } else {
-            
         }
     };
+
+    useEffect(() => {
+        if (dados && !erro) {
+            responsavelRef.current.endereco.cep = dados.cep || "";
+            responsavelRef.current.endereco.logradouro = dados.logradouro || "";
+            responsavelRef.current.endereco.bairro = dados.bairro || "";
+            responsavelRef.current.endereco.cidade = dados.localidade || "";
+            setUpdateKey((prevKey) => prevKey + 1);
+        } else {
+            console.error("Erro ao buscar o CEP:", erro);
+        }
+    }
+    , [dados, erro]);
 
     useEffect(()=>{
         handleBuscar()
     },[cep])
+    
     return (
         <div className={styles['container']} key={updateKey}>
             <div className={styles['inputs']}>
                 <InputMask
                     mask="99999-999"
-                    maskChar={null}
-                    // value={responsavelRef.current.endereco.cep}
-                    // onChange={(e) => responsavelRef.current.endereco.cep = e.target.value}
-                
-                    value={cep}
+                    maskChar={null}             
+                    value={responsavelRef.current.endereco.cep}
                     onChange={(e) => setCep(e.target.value.replace("-", ""))}
                     >
                     {() =>
