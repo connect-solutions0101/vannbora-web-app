@@ -17,7 +17,7 @@ function ItemList({values, title, firstLabel, secondLabel, endpoint, setPainelSt
                             setPainelState={setPainelState}
                             hasButton={hasButton}
                             buttonColor={item.ultimaFaturaPaga === "PAGO" ? "#50EB6C" : "#FF5459"}
-                            buttonFunction={() => buttonFunction(item.id, item.ultimaFaturaPaga)}
+                            buttonFunction={() => buttonFunction(item.ultimaFaturaId, item.ultimaFaturaPaga)}
                         />
                     ))}
             </div>

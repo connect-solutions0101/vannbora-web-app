@@ -17,7 +17,7 @@ const Dashboard = () => {
         devedoresMes: 0,
         pagantesMes: 0,
         recebimentoEsperadoMes: 0,
-        recebimentoRealizadosMes: 0,
+        recebimentoRealizadoMes: 0,
         rendaMesAnterior: 0,
         totalEscolas: 0,
         rendaMediaPorDependente: 0
@@ -53,6 +53,7 @@ const Dashboard = () => {
                 Authorization: `Bearer ${Cookies.get('token')}`
             }
         }).then((response) => {
+            console.log(response.data)
             setValoresEstaticos(response.data);
         }).catch((error) => {
             console.log(error);
@@ -98,6 +99,7 @@ const Dashboard = () => {
     }
 
     function handleAtualizarPagamento(id, pago){
+        console.log(id)
         api.put("/registros-faturas/"+id,
         {
             faturaId: 0,
@@ -108,6 +110,7 @@ const Dashboard = () => {
                 Authorization: `Bearer ${Cookies.get('token')}`
             }
         }).then((response) => {
+            console.log(response.data);
             handleGetDashboardEstatica();
             handleGetDependentes();
         }).catch((error) => {
@@ -253,18 +256,18 @@ const Dashboard = () => {
                 <div className={styles.center}>
                     <CardDash title={"Pagamentos do mês atual"} value={valoresEstaticos.pagantesMes} size={105}/>
                     <CardDash title={"Recebimento esperado do mês"} value={isNaN(valoresEstaticos.recebimentoEsperadoMes) ? "N/A" : "R$"+valoresEstaticos.recebimentoEsperadoMes} size={105}/>
-                    <CardDash title={"Recebimento do mês"} value={isNaN(valoresEstaticos.recebimentoRealizadosMes) ? "N/A" : "R$"+valoresEstaticos.recebimentoRealizadosMes} size={75}/>
+                    <CardDash title={"Recebimento do mês"} value={isNaN(valoresEstaticos.recebimentoRealizadoMes) || valoresEstaticos.recebimentoRealizadoMes === null ? "N/A" : "R$"+valoresEstaticos.recebimentoRealizadoMes} size={75}/>
                     <CardDash title={"Renda total x Mês anterior"} value={
                         isNaN(valoresEstaticos.rendaMesAnterior) ? "N/A" :
-                        isNaN(valoresEstaticos.recebimentoRealizadosMes) ? "N/A" :
-                        "R$"+(Number(valoresEstaticos.rendaMesAnterior) - Number(valoresEstaticos.recebimentoRealizadosMes))
+                        isNaN(valoresEstaticos.recebimentoRealizadoMes) ? "N/A" :
+                        "R$"+(Number(valoresEstaticos.recebimentoRealizadoMes) - Number(valoresEstaticos.rendaMesAnterior))
                         } size={75}/>
                     <CardDash title={"Quantidade de Escolas"} value={valoresEstaticos.totalEscolas} size={75}/>
-                    <CardDash title={"Média de R$ por Aluno"} value={"R$"+valoresEstaticos.rendaMediaPorDependente} size={75}/>
+                    <CardDash title={"Média de R$ por Aluno"} value={"R$"+valoresEstaticos.rendaMediaPorDependente.toFixed(2).replace(".", ",")} size={75}/>
                 </div>
 
                 <div className={styles.right}>
-                    <div className={styles["top-session"]}>
+                    {/* <div className={styles["top-session"]}>
                         <h1>Buscar Por</h1>
                         <div className={styles["search-box"]}>
                             <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" strokeWidth={1.5} stroke="currentColor" className="size-6">
@@ -272,7 +275,7 @@ const Dashboard = () => {
                             </svg>
                             <input type="text" placeholder={"nome do aluno"} />
                         </div>
-                    </div>
+                    </div> */}
                     <div className={styles["bottom-session"]}>
                         <ItemList values={dependentes} title={""} firstLabel={"Escola"} secondLabel={"Responsável"} hasButton={true} buttonFunction={handleAtualizarPagamento}/>
                     </div>
