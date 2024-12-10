@@ -17,6 +17,12 @@
     justify-content: space-between;
 }
 
+.left .top .downloadIcon{
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
 .left .top .chart{
     height: 100%;
     width: 50%;

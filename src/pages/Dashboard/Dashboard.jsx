@@ -9,6 +9,7 @@ import { useState, useEffect } from "react";
 import api from "../../api";
 import Cookies from "js-cookie";
 import { formatDate } from "../../utils/global";
+import { TbFileDownload } from "react-icons/tb";
 
 const Dashboard = () => {
 
@@ -53,7 +54,6 @@ const Dashboard = () => {
                 Authorization: `Bearer ${Cookies.get('token')}`
             }
         }).then((response) => {
-            console.log(response.data)
             setValoresEstaticos(response.data);
         }).catch((error) => {
             console.log(error);
@@ -90,7 +90,6 @@ const Dashboard = () => {
                 }
             }
         ).then((response) => {
-            console.log(response.data);
             setDependentes(response.data);
         }
         ).catch((error) => {
@@ -110,7 +109,6 @@ const Dashboard = () => {
                 Authorization: `Bearer ${Cookies.get('token')}`
             }
         }).then((response) => {
-            console.log(response.data);
             handleGetDashboardEstatica();
             handleGetDependentes();
         }).catch((error) => {
@@ -230,12 +228,45 @@ const Dashboard = () => {
         }
     };
 
+    const downloadFile = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/financas/download-csv/'+Cookies.get('id') , {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/octet-stream',
+                    'Authorization': `Bearer ${ Cookies.get('token') }`,
+                },
+            });
+
+            if (response.ok) {
+                const blob = await response.blob();
+
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'VannBoraFinancas.csv'); // Nome do arquivo
+                document.body.appendChild(link);
+                link.click();
+
+                link.parentNode.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            } else {
+                console.error("Erro ao baixar o arquivo");
+            }
+        } catch (error) {
+            console.error("Erro na requisição", error);
+        }
+    };
+
     return (
         <div className={styles.dashboard}>
             <NavBar />
             <div className={styles.container}>
                 <div className={styles.left}>
                     <div className={styles.top}>
+                        <div className={styles.downloadIcon}>
+                            <TbFileDownload size={50} color="#011638" style={{cursor:"pointer"}} onClick={downloadFile}/>
+                        </div>
                         <div className={styles.chart}>
                             <HighchartsReact highcharts={Highcharts} options={pieOptions} />   
                         </div>

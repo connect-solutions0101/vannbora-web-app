@@ -15,38 +15,38 @@ import SelectItems from '../../components/SelectItems/SelectItems';
 
 function Test() {
 
-    // const downloadFile = async () => {
-    //     try {
-    //         const response = await fetch('http://localhost:8080/financas/download-csv ', {
-    //             method: 'GET',
-    //             headers: {
-    //                 'Content-Type': 'application/octet-stream',
-    //                 'Authorization': `Bearer ${ Cookies.get('token') }`,
-    //             },
-    //         });
+    const downloadFile = async () => {
+        try {
+            const response = await fetch('http://localhost:8080/financas/download-csv/'+Cookies.get('id') , {
+                method: 'GET',
+                headers: {
+                    'Content-Type': 'application/octet-stream',
+                    'Authorization': `Bearer ${ Cookies.get('token') }`,
+                },
+            });
 
-    //         if (response.ok) {
-    //             // Converte o byte[] em um Blob
-    //             const blob = await response.blob();
+            if (response.ok) {
+                // Converte o byte[] em um Blob
+                const blob = await response.blob();
 
-    //             // Cria uma URL para o Blob e simula o clique para download
-    //             const url = window.URL.createObjectURL(blob);
-    //             const link = document.createElement('a');
-    //             link.href = url;
-    //             link.setAttribute('download', 'VannBoraFinancas.csv'); // Nome do arquivo
-    //             document.body.appendChild(link);
-    //             link.click();
+                // Cria uma URL para o Blob e simula o clique para download
+                const url = window.URL.createObjectURL(blob);
+                const link = document.createElement('a');
+                link.href = url;
+                link.setAttribute('download', 'VannBoraFinancas.csv'); // Nome do arquivo
+                document.body.appendChild(link);
+                link.click();
 
-    //             // Limpa a URL e remove o link criado
-    //             link.parentNode.removeChild(link);
-    //             window.URL.revokeObjectURL(url);
-    //         } else {
-    //             console.error("Erro ao baixar o arquivo");
-    //         }
-    //     } catch (error) {
-    //         console.error("Erro na requisição", error);
-    //     }
-    // };
+                // Limpa a URL e remove o link criado
+                link.parentNode.removeChild(link);
+                window.URL.revokeObjectURL(url);
+            } else {
+                console.error("Erro ao baixar o arquivo");
+            }
+        } catch (error) {
+            console.error("Erro na requisição", error);
+        }
+    };
 
     const navigate = useNavigate();
 
@@ -72,14 +72,19 @@ function Test() {
       ]);
 
     return (
+        // <div style={{width:"100vw", height:"100vh", display:"flex", justifyContent:"center", alignItems:"center"}}>
+        //     <NextLink size={"small"} color={"light"}/>
+        //     <PreviousLink size={"small"} color={"light"}/>
+
+        //     <Breadcrumb items={breadcrumbItems} />
+
+        //     <ItemFormAluno />
+        //     <SelectItems items={[{id:1, nome:"Escola 1"}, {id:2, nome:"Escola 2"}, {id:3, nome:"Escola 3"}]} label={"Escola"} size={176} styleNumber={1} />
+        // </div>
         <div style={{width:"100vw", height:"100vh", display:"flex", justifyContent:"center", alignItems:"center"}}>
-            {/* <NextLink size={"small"} color={"light"}/>
-            <PreviousLink size={"small"} color={"light"}/> */}
-
-            {/* <Breadcrumb items={breadcrumbItems} /> */}
-
-            <ItemFormAluno />
-            {/* <SelectItems items={[{id:1, nome:"Escola 1"}, {id:2, nome:"Escola 2"}, {id:3, nome:"Escola 3"}]} label={"Escola"} size={176} styleNumber={1} /> */}
+            <Botao onClick={downloadFile} colorPreset={"blue"} hoverPreset={"yellow"} size={150}>
+              Download CSV
+            </Botao>
         </div>
     );
 }
