@@ -11,8 +11,14 @@ const TelaListagemEscolas = () => {
 
     const navigate = useNavigate();
 
+    const [filtroNome, setFiltroNome] = React.useState("");
+
+    useEffect(() => {
+        handleGetEscolas()
+    }, [filtroNome]);
+
     function handleGetEscolas() {
-        api.get("escolas/full/"+Cookies.get('id'),
+        api.get("escolas/full/"+Cookies.get('id')+"?nome="+filtroNome,
             {
                 headers: {
                     Authorization: `Bearer ${Cookies.get('token')}`
@@ -78,6 +84,8 @@ const TelaListagemEscolas = () => {
                 setPainel={setPainelEscola}
                 cadastrarFunction={() => navigate("/escolas/cadastro")}
                 editFunction={handleEditEscola}
+                searchText={filtroNome}
+                setSearchText={setFiltroNome}
                 painel={painelEscola}>
                 <ItemForm painelState={painelEscola} setPainelState={setPainelEscola}/>
             </GenericMainPage>

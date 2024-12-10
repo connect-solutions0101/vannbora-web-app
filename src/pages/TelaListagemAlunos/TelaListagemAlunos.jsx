@@ -11,6 +11,12 @@ import { toast } from "react-toastify";
 const TelaListagemAlunos = () => {  
 
     const navigate = useNavigate();
+
+    const [filtroNome, setFiltroNome] = React.useState("");
+
+    useEffect(() => {
+        handleGetDependentes()
+    }, [filtroNome]);
     
     const [dependentes, setDependentes] = useState([]);
     const [painelDependente, setPainelDependente] = useState({
@@ -20,7 +26,7 @@ const TelaListagemAlunos = () => {
     const [shouldCallApi, setShouldCallApi] = useState(false);
 
     function handleGetDependentes() {
-        api.get("dependentes/full/"+Cookies.get('id'),
+        api.get("dependentes/full/"+Cookies.get('id')+"?nome="+filtroNome,
             {
                 headers: {
                     Authorization: `Bearer ${Cookies.get('token')}`
@@ -122,13 +128,15 @@ const TelaListagemAlunos = () => {
         <>
             <GenericMainPage 
                 values={dependentes} 
-                title={"Aluno"} 
+                title={""}
                 firstLabel={"Escola:"} 
                 secondLabel={"Responsável:"} 
                 endpoint={"dependentes/fullPorId"}
                 setPainel={setPainelDependente}
                 painel={painelDependente}
                 editFunction={handleEditDependente}
+                searchText={filtroNome}
+                setSearchText={setFiltroNome}
                 cadastrarFunction={() => navigate("/alunos/cadastro")}>
                 <ItemFormAluno 
                     setPainelState={setPainelDependente} 

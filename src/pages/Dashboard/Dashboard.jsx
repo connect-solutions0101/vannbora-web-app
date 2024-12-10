@@ -83,7 +83,7 @@ const Dashboard = () => {
     }
 
     function handleGetDependentes() {
-        api.get("dependentes/full/"+Cookies.get('id'),
+        api.get("dependentes/full/"+Cookies.get('id')+"?nome=",
             {
                 headers: {
                     Authorization: `Bearer ${Cookies.get('token')}`
@@ -98,7 +98,6 @@ const Dashboard = () => {
     }
 
     function handleAtualizarPagamento(id, pago){
-        console.log(id)
         api.put("/registros-faturas/"+id,
         {
             faturaId: 0,
