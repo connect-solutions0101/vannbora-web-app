@@ -3,7 +3,7 @@
     src: url("../../utils/fonts/Poppins/Poppins-SemiBold.ttf") format("truetype");
   }
   .fundo {
-    background-color: #011638;
+    background-image: url("../../utils/assets/cadastroBackground.svg");
     display: flex;
     align-items: center;
     justify-content: center;
