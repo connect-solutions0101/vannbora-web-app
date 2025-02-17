@@ -8,10 +8,12 @@ import api from "../../api";
 import Cookies from 'js-cookie';
 import { toast } from "react-toastify";
 import useViaCep from "../../utils/useViaCep";
+import useStore from "../../store/formCadEscolaStore";
 
 const CadastroEscola = () => {
 
   const navigate = useNavigate();
+  const 
 
   const [painelEscola, setPainelEscola] = useState({
     id: "",
