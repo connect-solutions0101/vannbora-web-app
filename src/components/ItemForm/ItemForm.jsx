@@ -4,170 +4,160 @@ import Input from "../Input/Input";
 import InputMask from "react-input-mask";
 import { RiCloseCircleLine } from "react-icons/ri";
 import useViaCep from "../../utils/useViaCep";
+import useStore from "../../store/escolaStore";
 
-const ItemForm = ({painelState, setPainelState}) => {
-        const atualizarPropriedade = (e, prop) => {
-            const props = prop.split(".");
-            if(props.length === 1){
-                setPainelState((prevState) => ({
-                    ...prevState,
-                    [prop]: e.target.value,
-                }));
-            }
-            else if(props.length === 2){
-                setPainelState((prevState) => ({
-                    ...prevState,
-                    [props[0]]: {
-                        ...prevState[props[0]],
-                        [props[1]]: e.target.value,
-                    }
-                }));
-            }
-        };
+const ItemForm = () => {
 
-        const resetarObj = () => {
-            setPainelState({
-                id: "",
-                nome: "",
-                telefone: "",
-                nomeRepresentante: "",
-                telefoneRepresentante: "",
+    const { formData, updateFormData, resetFormData } = useStore();
+
+    const [cep, setCep] = useState("");
+    const { dados, erro, buscarCep } = useViaCep();
+
+    const handleChange = (e) => {
+        const { name, value } = e.target;
+        updateFormData({ [name]: value });
+    };
+  
+    const handleEnderecoChange = (e) => {
+        const { name, value } = e.target;
+        updateFormData({ endereco: { [name]: value } });
+    };
+
+    const handleBuscar = async () => {
+        if (cep.length === 8 && !isNaN(cep)) {
+            buscarCep(cep)
+        }
+    };
+
+    const handleReset = () => {
+        resetFormData();
+    }
+
+    useEffect(()=>{
+        handleBuscar()
+    },[cep])
+
+    useEffect(() => {
+        if (dados && !erro) {
+            updateFormData({
                 endereco: {
-                    id: "",
-                    cep: "",
-                    numero: "",
-                    logradouro: "",
-                    cidade: "",
-                    bairro: "",
-                    pontoReferencia: ""
+                    cep: dados.cep || "",
+                    logradouro: dados.logradouro || "",
+                    bairro: dados.bairro || "",
+                    cidade: dados.localidade || ""
                 }
             });
-        };
-
-        const [cep, setCep] = useState(painelState.endereco.cep);
-        const { dados, erro, loading, buscarCep } = useViaCep();
-        const [updateKey, setUpdateKey] = useState(0); 
-
-        const handleBuscar = async () => {
-            if (cep.length === 8 && !isNaN(cep)) {
-                buscarCep(cep)
-            }
-        };
-
-        useEffect(()=>{
-            handleBuscar()
-        },[cep])
-
-        useEffect(() => {
-            if (dados && !erro) {
-                painelState.endereco.cep = dados.cep || "";
-                painelState.endereco.logradouro = dados.logradouro || "";
-                painelState.endereco.bairro = dados.bairro || "";
-                painelState.endereco.cidade = dados.localidade || "";
-                setUpdateKey((prevKey) => prevKey + 1);
-            } else {
-                console.error("Erro ao buscar o CEP:", erro);
-            }
+        } else {
+            console.error("Erro ao buscar o CEP:", erro);
         }
-        , [dados, erro]);
-        
-        return (
-            <div className={styles["container"]} key={updateKey}>
-                <RiCloseCircleLine className={styles.closeButton} onClick={resetarObj}/>
-                <form className={styles["formulario"]}>
-                    <h1>Informações da <span style={{color:"#0D21A1"}}>escola</span></h1>
-                    <div className={styles.inputs}>
+    }, [dados, erro]);
+    
+    return (
+        <div className={styles["container"]}>
+            <RiCloseCircleLine className={styles.closeButton} onClick={handleReset}/>
+            <form className={styles["formulario"]}>
+                <h1>Informações da <span style={{color:"#0D21A1"}}>escola</span></h1>
+                <div className={styles.inputs}>
+                    <Input
+                        type="text"
+                        label={"Nome da escola"}
+                        size={176}
+                        onChange={handleChange}
+                        value={formData.nome}
+                        name="nome"
+                        styleNumber={1}
+                        />
+                    <Input
+                        type="text"
+                        label={"Telefone da escola"} 
+                        size={176}
+                        onChange={handleChange}
+                        value={formData.telefone}
+                        name="telefone"
+                        styleNumber={1}
+                    />
+                </div>
+                <div className={styles.inputs}>
+                    <Input
+                        type="text"
+                        label={"Representante"}
+                        size={176}
+                        onChange={handleChange}
+                        value={formData.nomeResponsavel}
+                        name="nomeResponsavel"
+                        styleNumber={1}
+                    />
+                    <Input
+                        type="text"
+                        label={"Tel representante"} 
+                        size={176}
+                        onChange={handleChange}
+                        value={formData.telefoneResponsavel}
+                        name="telefoneResponsavel"
+                        styleNumber={1}
+                    />
+                </div>
+                <div className={styles.inputs}>
+                    <div className={styles.doubleInput} style={{display:"flex"}}>
+                        <InputMask
+                            mask="99999-999"
+                            maskChar={null}
+                            value={formData.endereco.cep}
+                            onChange={(e) => setCep(e.target.value.replace("-", ""))}
+                        >
+                            {() =>
+                                <Input
+                                    label="CEP"
+                                    type="text"
+                                    styleNumber={1}
+                                    size={84}
+                                    name="cep"
+                                />
+                            }
+                        </InputMask>
                         <Input
                             type="text"
-                            label={"Nome da escola"}
-                            size={176}
-                            onChange={(e) => atualizarPropriedade(e, "nome")}
-                            value={painelState.nome}
-                            styleNumber={1}
-                            />
-                        <Input
-                            type="text"
-                            label={"Telefone da escola"} 
-                            size={176}
-                            onChange={(e) => atualizarPropriedade(e, "telefone")}
-                            value={painelState.telefone}
+                            label={"Nº"} 
+                            size={84}
+                            onChange={handleEnderecoChange}
+                            value={formData.endereco.numero}
+                            name="numero"
                             styleNumber={1}
                         />
                     </div>
-                    <div className={styles.inputs}>
-                        <Input
-                            type="text"
-                            label={"Representante"}
-                            size={176}
-                            onChange={(e) => atualizarPropriedade(e, "nomeResponsavel")}
-                            value={painelState.nomeResponsavel}
-                            styleNumber={1}
-                        />
-                        <Input
-                            type="text"
-                            label={"Tel representante"} 
-                            size={176}
-                            onChange={(e) => atualizarPropriedade(e, "telefoneResponsavel")}
-                            value={painelState.telefoneResponsavel}
-                            styleNumber={1}
-                        />
-                    </div>
-                    <div className={styles.inputs}>
-                        <div className={styles.doubleInput} style={{display:"flex"}}>
-                            <InputMask
-                                mask="99999-999"
-                                maskChar={null}
-                                value={cep}
-                                onChange={(e) => setCep(e.target.value.replace("-", ""))}
-                            >
-                                {() =>
-                                    <Input
-                                        label="CEP"
-                                        type="text"
-                                        styleNumber={1}
-                                        size={84}
-                                    />
-                                }
-                            </InputMask>
-                            <Input
-                                type="text"
-                                label={"Nº"} 
-                                size={84}
-                                onChange={(e) => atualizarPropriedade(e, "endereco.numero")}
-                                value={painelState.endereco.numero}
-                                styleNumber={1}
-                            />
-                        </div>
-                        <Input
-                            type="text"
-                            label={"Logradouro (Rua)"}
-                            size={176}
-                            onChange={(e) => atualizarPropriedade(e, "endereco.logradouro")}
-                            value={painelState.endereco.logradouro}
-                            styleNumber={1}
-                        />                        
-                    </div>
-                    <div className={styles.inputs}>
-                        <Input
-                            type="text"
-                            label={"Cidade"} 
-                            size={176}
-                            onChange={(e) => atualizarPropriedade(e, "endereco.cidade")}
-                            value={painelState.endereco.cidade}
-                            styleNumber={1}
-                        />
-                        <Input
-                            type="text"
-                            label={"Bairro"}
-                            size={176}
-                            onChange={(e) => atualizarPropriedade(e, "endereco.bairro")}
-                            value={painelState.endereco.bairro}
-                            styleNumber={1}
-                        />
-                    </div>
-                </form>
-            </div>
-        );
-    };
+                    <Input
+                        type="text"
+                        label={"Logradouro (Rua)"}
+                        size={176}
+                        onChange={handleEnderecoChange}
+                        value={formData.endereco.logradouro}
+                        name="logradouro"
+                        styleNumber={1}
+                    />                        
+                </div>
+                <div className={styles.inputs}>
+                    <Input
+                        type="text"
+                        label={"Cidade"} 
+                        size={176}
+                        onChange={handleEnderecoChange}
+                        value={formData.endereco.cidade}
+                        name="cidade"
+                        styleNumber={1}
+                    />
+                    <Input
+                        type="text"
+                        label={"Bairro"}
+                        size={176}
+                        onChange={handleEnderecoChange}
+                        value={formData.endereco.bairro}
+                        name="bairro"
+                        styleNumber={1}
+                    />
+                </div>
+            </form>
+        </div>
+    );
+};
 
 export default ItemForm;

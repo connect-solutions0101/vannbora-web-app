@@ -1,7 +1,7 @@
 import React, { forwardRef } from "react";
 import styles from "./Input.module.css";
 
-const Input = forwardRef(({ size, type, label, value, placeholder, onChange, styleNumber}, ref) => {
+const Input = forwardRef(({ size, type, label, value, name, placeholder, onChange, styleNumber}, ref) => {
     let color = "#141414";
     let border = "1px solid #141414";
     let borderRadius = "7px"
@@ -42,6 +42,7 @@ const Input = forwardRef(({ size, type, label, value, placeholder, onChange, sty
             <input 
                 style={{color:color, border:border, borderRadius:borderRadius}} 
                 type={type} 
+                name={name}
                 defaultValue={value} 
                 onChange={onChange} 
                 placeholder={placeholder} 

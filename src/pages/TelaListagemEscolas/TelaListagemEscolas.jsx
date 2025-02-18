@@ -6,10 +6,13 @@ import { useEffect } from "react";
 import { toast } from "react-toastify";
 import ItemForm from "../../components/ItemForm/ItemForm";
 import { useNavigate } from "react-router-dom";
+import useStore from "../../store/escolaStore";
 
 const TelaListagemEscolas = () => {
 
     const navigate = useNavigate();
+
+    const { formData, updateFormData, replaceFormData, resetFormData } = useStore();
 
     const [filtroNome, setFiltroNome] = React.useState("");
 
@@ -73,6 +76,8 @@ const TelaListagemEscolas = () => {
         }
     });
 
+    
+
     return (
         <>
            <GenericMainPage 
@@ -81,13 +86,13 @@ const TelaListagemEscolas = () => {
                 firstLabel={"Alunos:"} 
                 secondLabel={"Pagamentos Restantes:"} 
                 endpoint={"escolas"}
-                setPainel={setPainelEscola}
+                setPainel={replaceFormData}
                 cadastrarFunction={() => navigate("/escolas/cadastro")}
                 editFunction={handleEditEscola}
                 searchText={filtroNome}
                 setSearchText={setFiltroNome}
-                painel={painelEscola}>
-                <ItemForm painelState={painelEscola} setPainelState={setPainelEscola}/>
+                painel={formData}>
+                <ItemForm/>
             </GenericMainPage>
         </>
     );

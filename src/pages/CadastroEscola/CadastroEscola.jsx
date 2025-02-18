@@ -8,77 +8,39 @@ import api from "../../api";
 import Cookies from 'js-cookie';
 import { toast } from "react-toastify";
 import useViaCep from "../../utils/useViaCep";
-import useStore from "../../store/formCadEscolaStore";
+import useStore from "../../store/escolaStore";
 
 const CadastroEscola = () => {
 
   const navigate = useNavigate();
-  const 
+  const { formData, updateFormData, resetFormData } = useStore();
 
-  const [painelEscola, setPainelEscola] = useState({
-    id: "",
-    nome: "",
-    telefone: "",
-    nomeResponsavel: "",
-    telefoneResponsavel: "",
-    endereco: {
-      cep: "",
-      numero: "",
-      logradouro: "",
-      cidade: "",
-      bairro: ""
-    }
-  });
+  const handleChange = (e) => {
+      const { name, value } = e.target;
+      updateFormData({ [name]: value });
+  };
 
-  const atualizarPropriedade = (e, prop) => {
-    const props = prop.split(".");
-    if(props.length === 1){
-        setPainelEscola((prevState) => ({
-            ...prevState,
-            [prop]: e.target.value,
-        }));
-    }
-    else if(props.length === 2){
-        setPainelEscola((prevState) => ({
-            ...prevState,
-            [props[0]]: {
-                ...prevState[props[0]],
-                [props[1]]: e.target.value,
-            }
-        }));
-    }
+  const handleEnderecoChange = (e) => {
+      const { name, value } = e.target;
+      updateFormData({ endereco: { [name]: value } });
   };
 
   function handleCancel(){
-    setPainelEscola({
-      id: "",
-      nome: "",
-      telefone: "",
-      nomeResponsavel: "",
-      telefoneResponsavel: "",
-      endereco: {
-        cep: "",
-        numero: "",
-        logradouro: "",
-        cidade: "",
-        bairro: ""
-      }
-    });
-    
+    resetFormData();
     navigate("/escolas");
   } 
 
   function handleSave(event) {
-    event.preventDefault();
+    event.preventDefault();    
     api.post("/escolas/"+Cookies.get('id'),
-        painelEscola,
+        formData,
         {
             headers: {
                 Authorization: `Bearer ${Cookies.get('token')}`
             },
         }
     ).then((response) => {
-        setPainelEscola(response.data);
+        resetFormData();
         toast.success("Escola cadastrada com sucesso!");
         navigate("/escolas");
     }
@@ -88,9 +50,8 @@ const CadastroEscola = () => {
     });
   }
 
-    const [cep, setCep] = useState(painelEscola.endereco.cep);
+    const [cep, setCep] = useState("");
     const { dados, erro, loading, buscarCep } = useViaCep();
-    const [updateKey, setUpdateKey] = useState(0); 
 
     const handleBuscar = async () => {
         if (cep.length === 8 && !isNaN(cep)) {
@@ -100,17 +61,14 @@ const CadastroEscola = () => {
 
     useEffect(() => {
         if (dados && !erro) {
-            setPainelEscola((prevState) => ({
-                ...prevState,
+            updateFormData({
                 endereco: {
-                    ...prevState.endereco,
                     cep: dados.cep || "",
                     logradouro: dados.logradouro || "",
                     bairro: dados.bairro || "",
                     cidade: dados.localidade || ""
                 }
-            }));
-            setUpdateKey((prevKey) => prevKey + 1);
+            });
         } else {
             console.error("Erro ao buscar o CEP:", erro);
         }
@@ -123,7 +81,7 @@ const CadastroEscola = () => {
 
   return (
     <div className={styles["fundo"]}>
-      <div className={styles["container"]} key={updateKey}>
+      <div className={styles["container"]}>
         <div className={styles["formulario"]} onSubmit={handleSave}>
           <h1>
             Cadastrar nova <span style={{ color: "#0D21A1" }}>Escola</span>
@@ -133,15 +91,16 @@ const CadastroEscola = () => {
               type="text"
               placeholder={"Nome da escola"}
               size={280}
-              onChange={(e) => atualizarPropriedade(e, "nome")}
-              value={painelEscola.nome}
+              onChange={handleChange}
+              value={formData.nome}
+              name="nome"
               styleNumber={5}
             />
             <InputMask  
               mask="(99) 99999-9999"
               maskChar={null}
-              value={painelEscola.telefone}
-              onChange={(e) => atualizarPropriedade(e, "telefone")}
+              onChange={handleChange}
+              value={formData.telefone}
             >
               {() =>
                 <Input
@@ -149,6 +108,7 @@ const CadastroEscola = () => {
                   placeholder={"Telefone"}
                   size={280}
                   styleNumber={5}
+                  name="telefone"
                 />
               }
             </InputMask>
@@ -158,15 +118,16 @@ const CadastroEscola = () => {
               type="text"
               placeholder={"Representante"}
               size={280}
-              onChange={(e) => atualizarPropriedade(e, "nomeResponsavel")}
-              value={painelEscola.nomeResponsavel}
+              onChange={handleChange}
+              value={formData.nomeResponsavel}
+              name="nomeResponsavel"
               styleNumber={5}
             />
             <InputMask
               mask="(99) 99999-9999"
               maskChar={null}
-              value={painelEscola.telefoneResponsavel}
-              onChange={(e) => atualizarPropriedade(e, "telefoneResponsavel")}
+              onChange={handleChange}
+              value={formData.telefoneResponsavel}
             >
               {() =>
                 <Input
@@ -174,6 +135,7 @@ const CadastroEscola = () => {
                   placeholder={"Telefone do representante"}
                   size={280}
                   styleNumber={5}
+                  name="telefoneResponsavel"
                 />
               }
             </InputMask>
@@ -183,8 +145,9 @@ const CadastroEscola = () => {
               <InputMask
                 mask="99999-999"
                 maskChar={null}
-                value={cep}
                 onChange={(e) => setCep(e.target.value.replace("-", ""))}
+                value={cep}
+                name="cep"
               >
                 {() =>
                   <Input
@@ -199,8 +162,9 @@ const CadastroEscola = () => {
                 type="number"
                 placeholder={"Nº"}
                 size={130}
-                onChange={(e) => atualizarPropriedade(e, "endereco.numero")}
-                value={painelEscola.endereco.numero}
+                onChange={handleEnderecoChange}
+                value={formData.endereco.numero}
+                name="numero"
                 styleNumber={5}
               />
             </div>
@@ -208,8 +172,9 @@ const CadastroEscola = () => {
               type="text"
               placeholder={"Logradouro (Rua)"}
               size={280}
-              onChange={(e) => atualizarPropriedade(e, "endereco.logradouro")}
-              value={painelEscola.endereco.logradouro}
+              onChange={handleEnderecoChange}
+              value={formData.endereco.logradouro}
+              name="logradouro"
               styleNumber={5}
             />
           </div>
@@ -218,16 +183,18 @@ const CadastroEscola = () => {
               type="text"
               placeholder={"Cidade"}
               size={280}
-              onChange={(e) => atualizarPropriedade(e, "endereco.cidade")}
-              value={painelEscola.endereco.cidade}
+              onChange={handleEnderecoChange}
+              value={formData.endereco.cidade}
+              name="cidade"
               styleNumber={5}
             />
             <Input
               type="text"
               placeholder={"Bairro"}
               size={280}
-              onChange={(e) => atualizarPropriedade(e, "endereco.bairro")}
-              value={painelEscola.endereco.bairro}
+              onChange={handleEnderecoChange}
+              value={formData.endereco.bairro}
+              name="bairro"
               styleNumber={5}
             />
           </div>
