@@ -17,10 +17,11 @@ import { HiOutlineUsers } from "react-icons/hi";
 import { HiOutlineUser } from "react-icons/hi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { TbCoin } from "react-icons/tb";
+import useStore from "../../store/dependenteStore";
 
 const CadastroDependente = () => {
   const navigate = useNavigate();
-
+  const { formData, updateFormData, resetFormData } = useStore();
   const [currentStep, setCurrentStep] = useState(0);
   const [step, setStep] = useState();
 
@@ -70,23 +71,25 @@ const CadastroDependente = () => {
         return (
           <div style={{ display: "flex", gap: "80px" }}>
             <Responsaveis
-              responsaveisRef={responsavel1}
+              handleChange={handleResponsavelFinanceiroChange}
+              store={formData.responsaveis[0]}
               label={"Responsável Financeiro"}
             />
             {responsavel2.current !== null ? (
               <Responsaveis
-                responsaveisRef={responsavel2}
+                handleChange={handleResponsavelSecundarioChange}
+                store={formData.responsaveis[1]}
                 label={"Responsável Secundário"}
               />
             ) : null}
           </div>
         );
       case 1:
-        return <Aluno alunoRef={aluno} escolas={escolas} />;
+        return <Aluno handleChange={handleDependenteChange} store={formData} escolas={escolas} />;
       case 2:
-        return <Endereco responsavelRef={responsavel1} />;
+        return <Endereco handleChange={handleEnderecoChange} store={formData.responsaveis[0].responsavel.endereco} />;
       case 3:
-        return <Fatura faturaRef={fatura} />;
+        return <Fatura handleChange={handleFaturaChange} store={formData.fatura} />;
     }
   }
 
@@ -187,6 +190,37 @@ const CadastroDependente = () => {
     }
   }
 
+  const handleDependenteChange = (e) => {
+    const { name, value } = e.target;
+    updateFormData({ [name]: value });
+  };
+
+  const handleEnderecoChange = (e) => {
+      const { name, value } = e.target;
+      const responsaveis = [...formData.responsaveis];
+      responsaveis[0].responsavel.endereco[name] = value;
+      updateFormData({ responsaveis });
+  };
+
+  const handleResponsavelFinanceiroChange = (e) => {
+    const { name, value } = e.target;
+    const responsaveis = [...formData.responsaveis];
+    responsaveis[0].responsavel[name] = value;
+    updateFormData({ responsaveis });
+  };
+
+  const handleResponsavelSecundarioChange = (e) => {
+    const { name, value } = e.target;
+    const responsaveis = [...formData.responsaveis];
+    responsaveis[1].responsavel[name] = value;
+    updateFormData({ responsaveis });
+  };
+
+  const handleFaturaChange = (e) => {
+    const { name, value } = e.target;
+    updateFormData({ fatura: { [name]: value } });
+  };
+
   const handleNextLink = async () => {
     setCurrentStep((prev) => Math.min(prev + 1, 3));
   };
@@ -238,25 +272,31 @@ const CadastroDependente = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
+    console.log(formData);
+    
     setDependente({
-        nome: aluno.current.nome,
-        dataNascimento: aluno.current.dataNascimento.split('/').reverse().join('-'),
-        turno: aluno.current.turno,
-        condicao: aluno.current.condicao,
-        turma: aluno.current.turma,
-        escolaId: aluno.current.escolaId,
+        nome: formData.nome,
+        dataNascimento: formData.dataNascimento.split('/').reverse().join('-'),
+        turno: formData.turno,
+        condicao: formData.condicao,
+        turma: formData.turma,
+        escolaId: formData.escolaId,
         responsaveis: [
         {
-            responsavel: responsavel1.current,
-            tipoResponsavel: "FINANCEIRO"
+            responsavel: formData.responsaveis[0].responsavel,
+            tipoResponsavel: "FINANCEIRO",
         },
-        (responsavel2.current === null) ? null :
+        (formData.responsaveis[1].nome === ""
+          && formData.responsaveis[1].telefone === ""
+          && formData.responsaveis[1].parentesco === ""
+          && formData.responsaveis[1].cpf === ""
+        ) ? null :
         {
-            responsavel: responsavel2.current,
-            tipoResponsavel: "PADRAO"
+            responsavel: formData.responsaveis[1].responsavel,
+            tipoResponsavel: "PADRAO",
         }
         ],
-        fatura: fatura.current,
+        fatura: formData.fatura,
     });
     setShouldCallApi(true);
   };

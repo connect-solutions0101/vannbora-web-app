@@ -1,7 +1,7 @@
 import React, {forwardRef, useEffect} from "react";
 import styles from "./SelectItems.module.css";
 
-const SelectItems = forwardRef(({ label, items, styleNumber, size, selected, onChange }, ref) => {
+const SelectItems = forwardRef(({ label, items, styleNumber, size, selected, name, onChange }, ref) => {
     let color = "#141414";
     let border = "1px solid #141414";
     let borderRadius = "7px"
@@ -53,6 +53,7 @@ const SelectItems = forwardRef(({ label, items, styleNumber, size, selected, onC
                 style={{ width: `${size}px`, color: color, border: border, borderRadius: borderRadius }}
                 ref={ref}
                 onChange={onChange}
+                name={name}
                 defaultValue={selected !== undefined ? selected : ""}
             >
                 <option value={0} disabled>

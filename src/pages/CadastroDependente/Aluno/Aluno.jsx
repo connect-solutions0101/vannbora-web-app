@@ -3,13 +3,8 @@ import styles from './Aluno.module.css';
 import Input from '../../../components/Input/Input';
 import InputMask from 'react-input-mask';
 import SelectItems from '../../../components/SelectItems/SelectItems';
-import { useEffect, useState } from 'react';
-import api from '../../../api';
-import Cookies from 'js-cookie';
 
-const Aluno = ({alunoRef, escolas}) => {
-    
-
+const Aluno = ({handleChange, store, escolas}) => {
     return (
                 <div className={styles.container}>
                     <div className={styles.inputs}>
@@ -18,14 +13,15 @@ const Aluno = ({alunoRef, escolas}) => {
                             placeholder={"Nome do aluno"}
                             size={279}
                             styleNumber={1}
-                            value={alunoRef.current.nome}
-                            onChange={(e) => alunoRef.current.nome = e.target.value}
+                            value={store.nome}
+                            onChange={handleChange}
+                            name="nome"
                             />
                         <InputMask
                             mask="99/99/9999"
                             maskChar={null}
-                            value={alunoRef.current.dataNascimento}
-                            onChange={(e) => alunoRef.current.dataNascimento = e.target.value}
+                            value={store.dataNascimento}
+                            onChange={handleChange}
                         >
                             {() => 
                                 <Input
@@ -33,6 +29,7 @@ const Aluno = ({alunoRef, escolas}) => {
                                         placeholder={"Data de nascimento"}
                                         size={279}
                                         styleNumber={1}
+                                        name="dataNascimento"
                                 />
                             }
                         </InputMask>
@@ -44,15 +41,17 @@ const Aluno = ({alunoRef, escolas}) => {
                             size={279}
                             styleNumber={1}
                             selected={0}
-                            onChange={(e) => alunoRef.current.escolaId = e.target.value}
+                            onChange={handleChange}
+                            name="escolaId"
                         />
                         <Input
                             type="text"
                             placeholder={"Turma"}
                             size={279}
                             styleNumber={1}
-                            value={alunoRef.current.turma}
-                            onChange={(e) => alunoRef.current.turma = e.target.value}
+                            value={store.turma}
+                            onChange={handleChange}
+                            name="turma"
                         />
                     </div> 
                     <div className={styles.inputs}>
@@ -62,15 +61,17 @@ const Aluno = ({alunoRef, escolas}) => {
                             size={279}
                             styleNumber={1}
                             selected={0}
-                            onChange={(e) => alunoRef.current.turno = e.target.value}
+                            onChange={handleChange}
+                            name="turno"
                         />
                         <Input
                             type="text"
                             placeholder={"Condição"}
                             size={279}
                             styleNumber={1}
-                            value={alunoRef.current.condicao}
-                            onChange={(e) => alunoRef.current.condicao = e.target.value}
+                            value={store.condicao}
+                            onChange={handleChange}
+                            name="condicao"
                         />
                     </div>
                 </div>

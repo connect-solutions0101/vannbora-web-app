@@ -4,12 +4,10 @@ import Input from "../../../components/Input/Input";
 import InputMask from "react-input-mask";
 import useViaCep from "../../../utils/useViaCep";
 
-
-
-const Endereco = ({responsavelRef}) => {
+const Endereco = ({handleChange, store}) => {
 
     const [cep, setCep] = useState("");
-    const { dados, erro, loading, buscarCep } = useViaCep();
+    const { dados, erro, buscarCep } = useViaCep();
     const [updateKey, setUpdateKey] = useState(0); 
 
     const handleBuscar = async () => {
@@ -20,10 +18,14 @@ const Endereco = ({responsavelRef}) => {
 
     useEffect(() => {
         if (dados && !erro) {
-            responsavelRef.current.endereco.cep = dados.cep || "";
-            responsavelRef.current.endereco.logradouro = dados.logradouro || "";
-            responsavelRef.current.endereco.bairro = dados.bairro || "";
-            responsavelRef.current.endereco.cidade = dados.localidade || "";
+            const endereco = {
+                cep: dados.cep,
+                logradouro: dados.logradouro,
+                cidade: dados.localidade,
+                bairro: dados.bairro,
+                pontoReferencia: ""
+            }
+            handleChange({target: {name: "endereco", value: endereco}});
             setUpdateKey((prevKey) => prevKey + 1);
         } else {
             console.error("Erro ao buscar o CEP:", erro);
@@ -41,8 +43,8 @@ const Endereco = ({responsavelRef}) => {
                 <InputMask
                     mask="99999-999"
                     maskChar={null}             
-                    value={responsavelRef.current.endereco.cep}
-                    onChange={(e) => setCep(e.target.value.replace("-", ""))}
+                    value={store.cep}
+                    onChange={handleChange}
                     >
                     {() =>
                         <Input
@@ -50,14 +52,16 @@ const Endereco = ({responsavelRef}) => {
                             type="text"
                             styleNumber={1}
                             size={176}
+                            name="cep"
                         />
                     }
                 </InputMask>
                 <Input
                     placeholder="Número"
                     type="number"
-                    value={responsavelRef.current.endereco.numero}
-                    onChange={(e) => responsavelRef.current.endereco.numero = e.target.value}
+                    value={store.numero}
+                    onChange={handleChange}
+                    name="numero"
                     styleNumber={1}
                     size={176}
                 />
@@ -66,16 +70,18 @@ const Endereco = ({responsavelRef}) => {
                 <Input
                     placeholder="Logradouro"
                     type="text"
-                    value={responsavelRef.current.endereco.logradouro}
-                    onChange={(e) => responsavelRef.current.endereco.logradouro = e.target.value}
+                    value={store.logradouro}
+                    onChange={handleChange}
+                    name="logradouro"
                     styleNumber={1}
                     size={176}
                 />
                 <Input
                     placeholder="Cidade"
                     type="text"
-                    value={responsavelRef.current.endereco.cidade}
-                    onChange={(e) => responsavelRef.current.endereco.cidade = e.target.value}
+                    value={store.cidade}
+                    onChange={handleChange}
+                    name="cidade"
                     styleNumber={1}
                     size={176}
                 />
@@ -84,16 +90,18 @@ const Endereco = ({responsavelRef}) => {
                 <Input
                     placeholder="Bairro"
                     type="text"
-                    value={responsavelRef.current.endereco.bairro}
-                    onChange={(e) => responsavelRef.current.endereco.bairro = e.target.value}
+                    value={store.bairro}
+                    onChange={handleChange}
+                    name="bairro"
                     styleNumber={1}
                     size={176}
                 />
                 <Input
                     placeholder="Ponto de referência"
                     type="text"
-                    value={responsavelRef.current.endereco.pontoReferencia}
-                    onChange={(e) => responsavelRef.current.endereco.pontoReferencia = e.target.value}
+                    value={store.pontoReferencia}
+                    onChange={handleChange}
+                    name="pontoReferencia"
                     styleNumber={1}
                     size={176}
                 />
