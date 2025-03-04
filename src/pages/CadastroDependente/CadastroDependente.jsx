@@ -18,12 +18,12 @@ import { HiOutlineUser } from "react-icons/hi";
 import { HiOutlineLocationMarker } from "react-icons/hi";
 import { TbCoin } from "react-icons/tb";
 import useStore from "../../store/dependenteStore";
+import useViaCep from "../../utils/useViaCep";
 
 const CadastroDependente = () => {
   const navigate = useNavigate();
   const { formData, updateFormData, resetFormData } = useStore();
   const [currentStep, setCurrentStep] = useState(0);
-  const [step, setStep] = useState();
 
   const [breadcrumbItems, setBreadcrumbItems] = useState([
     {
@@ -52,46 +52,33 @@ const CadastroDependente = () => {
     },
   ]);
 
-  const responsavel1 = useRef({
-    endereco: {},
-  });
-  const responsavel2 = useRef({
-    endereco: {},
-  });
-  const aluno = useRef({});
-  const fatura = useRef({});
-
   const [escolas, setEscolas] = useState([]);
   const [dependente, setDependente] = useState({});
   const [shouldCallApi, setShouldCallApi] = useState(false);
+  const { dados, erro, buscarCep } = useViaCep();
 
-  function getSteps() {
-    switch (currentStep) {
-      case 0:
-        return (
-          <div style={{ display: "flex", gap: "80px" }}>
-            <Responsaveis
-              handleChange={handleResponsavelFinanceiroChange}
-              store={formData.responsaveis[0]}
-              label={"Responsável Financeiro"}
-            />
-            {responsavel2.current !== null ? (
-              <Responsaveis
-                handleChange={handleResponsavelSecundarioChange}
-                store={formData.responsaveis[1]}
-                label={"Responsável Secundário"}
-              />
-            ) : null}
-          </div>
-        );
-      case 1:
-        return <Aluno handleChange={handleDependenteChange} store={formData} escolas={escolas} />;
-      case 2:
-        return <Endereco handleChange={handleEnderecoChange} store={formData.responsaveis[0].responsavel.endereco} />;
-      case 3:
-        return <Fatura handleChange={handleFaturaChange} store={formData.fatura} />;
+  useEffect(() => {
+    const cep = formData.responsaveis[0].responsavel.endereco.cep;
+    if (cep.length === 9 && cep.includes("-") && !isNaN(cep.replace("-", ""))) {
+      buscarCep(cep);
     }
-  }
+  }, [formData.responsaveis[0].responsavel.endereco.cep]);
+
+  useEffect(() => {
+    if (dados && !erro) {
+      let responsaveis = [...formData.responsaveis];
+      responsaveis[0].responsavel.endereco = {
+        cep: dados.cep,
+        logradouro: dados.logradouro,
+        cidade: dados.localidade,
+        bairro: dados.bairro,
+        estado: dados.uf,
+      };
+      updateFormData({ responsaveis });
+    } else if (erro) {
+      console.error("Erro ao buscar o CEP:", erro);
+    }
+  }, [dados, erro]);
 
   function getBreadcrumbItems() {
     switch (currentStep) {
@@ -255,7 +242,6 @@ const CadastroDependente = () => {
   }, []);
 
   useEffect(() => {
-    setStep(getSteps());
     setBreadcrumbItems(getBreadcrumbItems());
   }, [currentStep]);
 
@@ -267,6 +253,7 @@ const CadastroDependente = () => {
   }, [setDependente, shouldCallApi]);
 
   const handleCancel = () => {
+    resetFormData();
     navigate("/alunos");
   };
 
@@ -327,7 +314,26 @@ const CadastroDependente = () => {
             Cadastrar novo <span style={{ color: "#0D21A1" }}>Aluno</span>
           </h1>
           <BreadCrumb items={breadcrumbItems} />
-          {step}
+          {currentStep === 0 && (
+            <div style={{ display: "flex", gap: "80px" }}>
+              <Responsaveis
+                handleChange={handleResponsavelFinanceiroChange}
+                store={formData.responsaveis[0]}
+                label={"Responsável Financeiro"}
+              />
+              <Responsaveis
+                handleChange={handleResponsavelSecundarioChange}
+                store={formData.responsaveis[1]}
+                label={"Responsável Secundário"}
+              />
+            </div>
+          )}{currentStep === 1 && (
+            <Aluno handleChange={handleDependenteChange} store={formData} escolas={escolas} />
+          )}{currentStep === 2 && (
+            <Endereco handleChange={handleEnderecoChange} store={formData.responsaveis[0].responsavel.endereco} />
+          )}{currentStep === 3 && (
+            <Fatura handleChange={handleFaturaChange} store={formData.fatura} />
+          )}
           <div className={styles["navigation-links"]}>
             {currentStep > 0 ? (
               <PreviousLink

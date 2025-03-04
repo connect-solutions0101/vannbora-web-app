@@ -9,6 +9,15 @@ import Cookies from "js-cookie";
       year: "numeric",
     });
   };
+
+  export function stringDateToDate(stringDate) {
+    const [year, month, day] = stringDate.split('-').map(Number);
+    return new Date(year, month - 1, day);
+  }
+
+  export function baseDateToBrDate(date) {
+    return date.split("-").reverse().join("/");
+  }
   
   export function formatDate(date) {
       const year = date.getFullYear();

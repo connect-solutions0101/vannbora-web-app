@@ -2,6 +2,7 @@ import { create } from "zustand";
 
 const useStore = create((set) => ({
     formData: {
+        id: "",
         nome: "",
         dataNascimento: "",
         turno: "",
@@ -11,30 +12,35 @@ const useStore = create((set) => ({
         responsaveis: [
             {
                 responsavel: {
+                    id: null,
                     nome: "",
                     telefone: "",
                     parentesco: "",
                     cpf: "",
                     endereco: {
+                        id: "",
                         cep: "",
                         numero: "",
                         logradouro: "",
                         cidade: "",
                         bairro: "",
                         pontoReferencia: ""
-                    }
+                    },
+                    proprietarioServico: {id: null}
                 },
                 tipoResponsavel: "FINANCEIRO"
             },
             {
                 responsavel: {
+                    id: null,
                     nome: "",
                     telefone: "",
                     parentesco: "",
                     cpf: "",
                     endereco: {
                         
-                    }
+                    },
+                    proprietarioServico: {id: null}
                 },
                 tipoResponsavel: "PADRAO"
             }
@@ -81,6 +87,7 @@ const useStore = create((set) => ({
     })),
     resetFormData: () => set(() => ({
         formData: {
+            id: "",
             nome: "",
             dataNascimento: "",
             turno: "",

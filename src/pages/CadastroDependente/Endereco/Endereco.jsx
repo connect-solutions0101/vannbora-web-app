@@ -2,43 +2,11 @@ import React, { useEffect, useState } from "react";
 import styles from "./Endereco.module.css";
 import Input from "../../../components/Input/Input";
 import InputMask from "react-input-mask";
-import useViaCep from "../../../utils/useViaCep";
 
 const Endereco = ({handleChange, store}) => {
-
-    const [cep, setCep] = useState("");
-    const { dados, erro, buscarCep } = useViaCep();
-    const [updateKey, setUpdateKey] = useState(0); 
-
-    const handleBuscar = async () => {
-        if (cep.length === 8 && !isNaN(cep)) {
-            buscarCep(cep)
-        }
-    };
-
-    useEffect(() => {
-        if (dados && !erro) {
-            const endereco = {
-                cep: dados.cep,
-                logradouro: dados.logradouro,
-                cidade: dados.localidade,
-                bairro: dados.bairro,
-                pontoReferencia: ""
-            }
-            handleChange({target: {name: "endereco", value: endereco}});
-            setUpdateKey((prevKey) => prevKey + 1);
-        } else {
-            console.error("Erro ao buscar o CEP:", erro);
-        }
-    }
-    , [dados, erro]);
-
-    useEffect(()=>{
-        handleBuscar()
-    },[cep])
     
     return (
-        <div className={styles['container']} key={updateKey}>
+        <div className={styles['container']}>
             <div className={styles['inputs']}>
                 <InputMask
                     mask="99999-999"

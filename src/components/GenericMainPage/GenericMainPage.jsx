@@ -12,11 +12,10 @@ const GenericMainPage = ({
     secondLabel,
     searchText,
     setSearchText,
+    handleCardClick,
+    showForm,
     cadastrarFunction,
     editFunction,
-    endpoint,
-    setPainel,
-    painel,
     children
 }) => {
 
@@ -36,7 +35,7 @@ const GenericMainPage = ({
                             </div>
                         </div>
                         <div className={styles["bottom-session"]}>
-                            <ItemList values={values} title={title} firstLabel={firstLabel} secondLabel={secondLabel} endpoint={endpoint} setPainelState={setPainel}/>
+                            <ItemList handleCardClick={handleCardClick} values={values} title={title} firstLabel={firstLabel} secondLabel={secondLabel}/>
                         </div>
                     </div>
                     <div className={styles["right"]}>
@@ -44,8 +43,8 @@ const GenericMainPage = ({
                             <Botao colorPreset={"blue"} hoverPreset={"yellow"} size={150} onClick={cadastrarFunction}> Cadastrar </Botao>
                         </div>
                         <div className={styles["bottom-session"]}>
-                            <Painel editFunction={editFunction} painelItems={painel}>
-                                {painel.id !== "" ? (
+                            <Painel editFunction={editFunction}>
+                                {showForm ? (
                                     children
                                 ) : (
                                     null

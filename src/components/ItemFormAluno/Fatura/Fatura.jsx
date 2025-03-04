@@ -2,35 +2,38 @@ import React from "react";
 import styles from "./Fatura.module.css";
 import Input from "../../Input/Input";
 
-const Fatura = ({faturaRef}) => {
-return (
-        <div className={styles['container']}>
-                <Input
-                    label="Valor da mensalidade (R$)"
-                    type="number"
-                    value={faturaRef.current.valor}
-                    onChange={(e) => faturaRef.current.valor = e.target.value}
-                    styleNumber={1}
-                    size={200}
-                />
-                <Input
-                    label="Data do pagamento"
-                    type="number"
-                    value={faturaRef.current.diaPagamento}
-                    onChange={(e) => faturaRef.current.diaPagamento = e.target.value}
-                    styleNumber={1}
-                    size={200}
-                />
-                <Input
-                    label="Quantidade de parcelas"
-                    type="number"
-                    value={faturaRef.current.quantidadeParcelas}
-                    onChange={(e) => faturaRef.current.quantidadeParcelas = e.target.value}
-                    styleNumber={1}
-                    size={200}
-                />
-        </div>
-    );
-}
+const Fatura = ({ handleChange, store }) => {
+  return (
+    <div className={styles["container"]}>
+      <Input
+        label="Valor da mensalidade (R$)"
+        type="number"
+        styleNumber={1}
+        size={200}
+        value={store.valor}
+        onChange={handleChange}
+        name="valor"
+      />
+      <Input
+        label="Data do pagamento"
+        type="number"
+        styleNumber={1}
+        size={200}
+        value={store.diaPagamento}
+        onChange={handleChange}
+        name="diaPagamento"
+      />
+      <Input
+        label="Quantidade de parcelas"
+        type="number"
+        styleNumber={1}
+        size={200}
+        value={store.quantidadeParcelas}
+        onChange={handleChange}
+        name="quantidadeParcelas}"
+      />
+    </div>
+  );
+};
 
 export default Fatura;

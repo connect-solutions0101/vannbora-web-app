@@ -3,7 +3,7 @@ import styles from "./Responsaveis.module.css";
 import Input from "../../Input/Input";
 import InputMask from "react-input-mask";
 
-const Responsaveis = ({responsaveisRef}) => {    
+const Responsaveis = ({handleChange, store}) => {    
     return (
             <div className={styles["inputs"]}>
                 <Input
@@ -11,20 +11,22 @@ const Responsaveis = ({responsaveisRef}) => {
                     label={"Nome Completo"}
                     size={176}
                     styleNumber={1}
-                    value={responsaveisRef.current.nome}
-                    onChange={(e) => responsaveisRef.current.nome = e.target.value}
+                    value={store.nome}
+                    onChange={handleChange}
+                    name="nome"
                 />
                 <InputMask
                     mask="(99) 99999-9999"
                     maskChar={null}
-                    value={responsaveisRef.current.telefone}
-                    onChange={(e) => responsaveisRef.current.telefone = e.target.value}>
+                    value={store.telefone}
+                    onChange={handleChange}>
                     {() =>
                         <Input
                             type="text"
                             label={"Telefone"}
                             size={176}
                             styleNumber={1}
+                            name="telefone"
                         />
                     }
                 </InputMask>
@@ -33,8 +35,9 @@ const Responsaveis = ({responsaveisRef}) => {
                     label={"Parentesco"}
                     size={176}
                     styleNumber={1}
-                    value={responsaveisRef.current.parentesco}
-                    onChange={(e) => responsaveisRef.current.parentesco = e.target.value}
+                    value={store.parentesco}
+                    onChange={handleChange}
+                    name="parentesco"
                 />
             </div>
     );

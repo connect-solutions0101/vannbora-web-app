@@ -50,34 +50,29 @@ const CadastroEscola = () => {
     });
   }
 
-    const [cep, setCep] = useState("");
-    const { dados, erro, loading, buscarCep } = useViaCep();
+  const [cep, setCep] = useState("");
+  const { dados, erro, buscarCep } = useViaCep();
 
-    const handleBuscar = async () => {
-        if (cep.length === 8 && !isNaN(cep)) {
-            buscarCep(cep)
-        }
-    };
-
-    useEffect(() => {
-        if (dados && !erro) {
-            updateFormData({
-                endereco: {
-                    cep: dados.cep || "",
-                    logradouro: dados.logradouro || "",
-                    bairro: dados.bairro || "",
-                    cidade: dados.localidade || ""
-                }
-            });
-        } else {
-            console.error("Erro ao buscar o CEP:", erro);
-        }
+  useEffect(()=>{
+    if (cep.length === 8 && !isNaN(cep)) {
+      buscarCep(cep)
     }
-    , [dados, erro]);
+  },[cep, buscarCep]);
 
-    useEffect(()=>{
-        handleBuscar()
-    },[cep])
+  useEffect(()=>{
+    if (dados && !erro) {
+        updateFormData({
+            endereco: {
+                cep: dados.cep,
+                logradouro: dados.logradouro,
+                bairro: dados.bairro,
+                cidade: dados.localidade
+            }
+        });        
+    } else {
+        console.error("Erro ao buscar o CEP:", erro);
+    }
+  },[dados, erro, updateFormData]);
 
   return (
     <div className={styles["fundo"]}>

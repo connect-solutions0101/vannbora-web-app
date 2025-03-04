@@ -2,7 +2,7 @@ import React from "react";
 import styles from "./Painel.module.css";
 import Botao from "../Botao/Botao";
 
-const Painel = ({ painelItems, editFunction, children }) => {
+const Painel = ({ editFunction, children }) => {
     return (
         <div className={styles["painel"]}>
             <div className={styles["container"]}>
