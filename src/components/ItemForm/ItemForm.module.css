@@ -29,10 +29,6 @@
     font-family: 'PoppinsSemiBold', sans-serif;
 }
 
-.formulario h1{
-    margin-bottom: 36px;
-}
-
 .formulario > .inputs{
     display: flex;
     gap: 100px;

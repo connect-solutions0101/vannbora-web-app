@@ -7,6 +7,7 @@ import Cookies from 'js-cookie';
 import api from "../../api";
 import { transformarData } from "../../utils/global";
 import { toast } from "react-toastify";
+import Swal from 'sweetalert2';
 
 const TelaListagemAlunos = () => {  
 
@@ -76,6 +77,13 @@ const TelaListagemAlunos = () => {
             })
             .catch((error) => {
                 console.log(error);
+                Swal.fire({
+                    icon: 'error',
+                    title: 'Oops...',
+                    confirmButtonColor: '#011638',
+                    confirmButtonText: 'Ok',
+                    text: 'Algo deu errado! Tente novamente.',
+                });
             })
             .finally(() => {
                 setShouldCallApi(false);
@@ -84,31 +92,46 @@ const TelaListagemAlunos = () => {
     }, [shouldCallApi, painelDependente]);
 
     function handleEditDependente() {     
-        setPainelDependente({
-            id: painelDependente.id,
-            nome: aluno.current.nome,
-            dataNascimento: aluno.current.dataNascimento.split('/').reverse().join('-'),
-            turno: aluno.current.turno,
-            condicao: aluno.current.condicao,
-            turma: aluno.current.turma,
-            escolaId: aluno.current.escolaId,
-            responsaveis: [
-            {
-                responsavel: responsavel1.current,
-                dependenteId: painelDependente.id,
-                tipoResponsavel: "FINANCEIRO"
-            },
-            (responsavel2.current === null) ? null :
-            {
-                responsavel: responsavel2.current,
-                dependenteId: painelDependente.id,
-                tipoResponsavel: "PADRAO"
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: 'Você não poderá reverter esta ação!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#011638',
+            cancelButtonColor: '#E21F1F',
+            confirmButtonText: 'Continuar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (!result.isConfirmed) { 
+                return;
+            } else {
+                setPainelDependente({
+                    id: painelDependente.id,
+                    nome: aluno.current.nome,
+                    dataNascimento: aluno.current.dataNascimento.split('/').reverse().join('-'),
+                    turno: aluno.current.turno,
+                    condicao: aluno.current.condicao,
+                    turma: aluno.current.turma,
+                    escolaId: aluno.current.escolaId,
+                    responsaveis: [
+                    {
+                        responsavel: responsavel1.current,
+                        dependenteId: painelDependente.id,
+                        tipoResponsavel: "FINANCEIRO"
+                    },
+                    (responsavel2.current === null) ? null :
+                    {
+                        responsavel: responsavel2.current,
+                        dependenteId: painelDependente.id,
+                        tipoResponsavel: "PADRAO"
+                    }
+                    ],
+                    fatura: fatura.current,
+                });
+          
+                setShouldCallApi(true);
             }
-            ],
-            fatura: fatura.current,
         });
-  
-        setShouldCallApi(true);
     }
 
     const responsavel1 = useRef({});

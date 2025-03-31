@@ -281,6 +281,17 @@ const CadastroDependente = () => {
 
   return (
     <div className={styles["fundo"]}>
+       <div className={styles["textos"]}>
+        <h1>
+          Sobre o Cadastro de Dependentes
+        </h1>
+        <span>
+          O cadastro de dependentes é um passo importante para garantir que todas as informações necessárias estejam disponíveis para o gerenciamento adequado. Ao preencher os dados, certifique-se de que todas as informações estejam corretas e atualizadas. Isso ajudará a manter um registro preciso e facilitará a comunicação com o dependente e seu responsável.
+        </span>
+        <span>
+          Estas informações estarão disponíveis para consulta e edição a qualquer momento. Também estarão disponíveis no aplicativo para a gerencia dos trajetos.
+        </span>
+      </div>
       <div className={styles["container"]}>
         <form className={styles["formulario"]}>
           <h1>

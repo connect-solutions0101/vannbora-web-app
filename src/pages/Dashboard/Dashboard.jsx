@@ -10,6 +10,7 @@ import api from "../../api";
 import Cookies from "js-cookie";
 import { formatDate } from "../../utils/global";
 import { TbFileDownload } from "react-icons/tb";
+import Swal from "sweetalert2";
 
 const Dashboard = () => {
 
@@ -98,21 +99,44 @@ const Dashboard = () => {
     }
 
     function handleAtualizarPagamento(id, pago){
-        api.put("/registros-faturas/"+id,
-        {
-            faturaId: 0,
-            pago: pago === "NAO_PAGO" ? true : false
-        },
-        {
-            headers: {
-                Authorization: `Bearer ${Cookies.get('token')}`
+        Swal.fire({
+            title: 'Tem certeza?',
+            text: 'Você não poderá reverter esta ação!',
+            icon: 'warning',
+            showCancelButton: true,
+            confirmButtonColor: '#011638',
+            cancelButtonColor: '#E21F1F',
+            confirmButtonText: 'Continuar',
+            cancelButtonText: 'Cancelar'
+        }).then((result) => {
+            if (!result.isConfirmed) { 
+                return;
+            } else {
+                api.put("/registros-faturas/"+id,
+                {
+                    faturaId: 0,
+                    pago: pago === "NAO_PAGO" ? true : false
+                },
+                {
+                    headers: {
+                        Authorization: `Bearer ${Cookies.get('token')}`
+                    }
+                }).then((response) => {
+                    handleGetDashboardEstatica();
+                    handleGetDependentes();
+                }).catch((error) => {
+                    Swal.fire({ 
+                        icon: 'error',
+                        title: 'Oops...',
+                        confirmButtonColor: '#011638',
+                        confirmButtonText: 'Ok',
+                        text: 'Algo deu errado! Tente novamente.',
+                    });
+                    console.log(error);
+                });
             }
-        }).then((response) => {
-            handleGetDashboardEstatica();
-            handleGetDependentes();
-        }).catch((error) => {
-            console.log(error);
         });
+        
     }
 
     useEffect(() => {
