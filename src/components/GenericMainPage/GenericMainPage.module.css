@@ -4,27 +4,26 @@
 }
 
 .container{
-    width: 100%;
-    height: calc(100vh - 80px);
+    height: calc(100vh - 60px);
     background-color: #EEF0F2;
     display: flex;
     justify-content: center;
     align-items: center;
+    margin: 0;
 }
 
 .painel{
     display: flex;
-    width: 88.29%;
-    height: 95%;
-    border-radius: 12px;
-    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+    justify-content: space-between;
+    width: 100%;
+    height: 100%;
     background-color: #F9F9F9;
     padding: 0 25px;
     gap: 50px;
 }
 
 .left{
-    width: 376px;
+    width: 28.6%;
     height: calc(100% - 88px);
     padding-bottom: 50px;
 }
@@ -71,8 +70,7 @@
 }
 
 .right{
-    width: 730px;
-    height: 100%;
+    width: 65%;
     height: calc(100% - 88px);
     padding-bottom: 50px;
 }

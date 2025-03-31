@@ -1,3 +1,8 @@
+@font-face {
+    font-family: "InterMedium";
+    src: url("../utils/fonts/Inter/Inter_18pt-Medium.ttf") format("truetype");
+}
+
 *{
     margin: 0;
     padding: 0;
@@ -6,4 +11,13 @@
 
 .highcharts-credits{
     display: none !important;
+}
+
+.swal2-popup {
+    font-family: 'InterMedium';
+    color: black;
+}
+
+.swal2-popup button{
+    font-family: 'InterMedium';
 }

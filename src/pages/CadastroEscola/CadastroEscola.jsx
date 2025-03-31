@@ -121,6 +121,17 @@ const CadastroEscola = () => {
 
   return (
     <div className={styles["fundo"]}>
+      <div className={styles["textos"]}>
+        <h1>
+          Sobre o Cadastro de Escola
+        </h1>
+        <span>
+          O cadastro da escola é um passo importante para garantir que todas as informações necessárias estejam disponíveis para o gerenciamento adequado. Ao preencher os dados, certifique-se de que todas as informações estejam corretas e atualizadas. Isso ajudará a manter um registro preciso e facilitará a comunicação com a escola.
+        </span>
+        <span>
+          Estas informações estarão disponíveis para consulta e edição a qualquer momento. Também estarão disponíveis no aplicativo para a gerencia dos trajetos.
+        </span>
+      </div>
       <div className={styles["container"]} key={updateKey}>
         <div className={styles["formulario"]} onSubmit={handleSave}>
           <h1>
