@@ -1,9 +1,9 @@
 import React from "react";
-import NavBar from "../../components/NavBar/NavBar";
+import NavBar from "../NavBar/NavBar";
 import styles from "./GenericMainPage.module.css";
-import Botao from "../../components/Botao/Botao";
-import Painel from "../../components/Painel/Painel";
-import ItemList from "../../components/ItemList/ItemList";
+import Botao from "../Botao/Botao";
+import Painel from "../Painel/Painel";
+import ItemList from "../ItemList/ItemList";
 
 const GenericMainPage = ({
     values,
