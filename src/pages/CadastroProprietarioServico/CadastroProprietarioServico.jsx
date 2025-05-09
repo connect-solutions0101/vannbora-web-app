@@ -130,7 +130,7 @@ const CadastroProprietarioServico = () => {
 
                         <div className={styles["footer"]}>
                             <p>Já possui uma conta?</p>
-                            <a href="/login">Faça login</a>
+                            <a onClick={() => navigate("/login")}>Faça login</a>
                         </div>
                     </form>
             </div>
