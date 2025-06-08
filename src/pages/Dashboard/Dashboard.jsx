@@ -11,8 +11,11 @@ import Cookies from "js-cookie";
 import { formatDate } from "../../utils/global";
 import { TbFileDownload } from "react-icons/tb";
 import Swal from "sweetalert2";
+import { useNavigate } from "react-router-dom";
 
 const Dashboard = () => {
+
+    const navigate = useNavigate();
 
     const [valoresEstaticos, setValoresEstaticos] = useState({
         totalDependentes: 0,
@@ -91,6 +94,19 @@ const Dashboard = () => {
                 }
             }
         ).then((response) => {
+            if(response.data.length === 0){
+                Swal.fire({
+                    icon: 'info',
+                    title: 'Nenhum dependente encontrado',
+                    text: 'Você pode cadastrar um novo dependente clicando no botão "Cadastrar".',
+                    confirmButtonColor: '#011638',
+                    confirmButtonText: 'Ok'
+                }).then(() => {
+                    navigate("/alunos");
+                });
+                return;
+            }
+            
             setDependentes(response.data);
         }
         ).catch((error) => {
@@ -140,8 +156,8 @@ const Dashboard = () => {
     }
 
     useEffect(() => {
-        handleGetDashboardEstatica();
         handleGetDependentes();
+        handleGetDashboardEstatica();
     }, []);
 
     const pieOptions = {
