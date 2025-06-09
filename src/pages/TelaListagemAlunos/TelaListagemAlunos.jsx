@@ -145,6 +145,11 @@ const TelaListagemAlunos = () => {
             id: ""
         });
         setFirstRender(true);
+        responsavel1.current = {};
+        responsavel2.current = {};
+        aluno.current = {};
+        endereco.current = {};
+        fatura.current = {};
     }
 
     return (
