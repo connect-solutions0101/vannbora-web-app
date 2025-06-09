@@ -69,7 +69,27 @@ const Dashboard = () => {
                 Authorization: `Bearer ${Cookies.get('token')}`
             }
         }).then((response) => {
-            setValoresMes(response.data);
+            
+            let { esperados = [], realizados = [] } = response.data;
+
+            esperados.forEach(esp => {
+                const existe = realizados.some(real => real.periodo === esp.periodo);
+                if (!existe) {
+                    realizados.push({ periodo: esp.periodo, valor: 0 });
+                }
+            });
+
+            const safeSortMes = arr =>
+                (arr || [])
+                    .filter(item => item && item.periodo !== undefined && item.periodo !== null)
+                    .sort((a, b) => Number(a.periodo) - Number(b.periodo));
+
+            const sortedDataMes = {
+                esperados: safeSortMes(esperados),
+                realizados: safeSortMes(realizados)
+            };    
+
+            setValoresMes(sortedDataMes);
         }).catch((error) => {
             console.log(error);
         });
@@ -80,7 +100,17 @@ const Dashboard = () => {
                 Authorization: `Bearer ${Cookies.get('token')}`
             }
         }).then((response) => {
-            setValoresDia(response.data);
+            const safeSort = arr =>
+                (arr || [])
+                    .filter(item => item && item.periodo !== undefined && item.periodo !== null)
+                    .sort((a, b) => Number(a.periodo) - Number(b.periodo));
+
+            const sortedData = {
+                esperados: safeSort(response.data.esperados),
+                realizados: safeSort(response.data.realizados)
+            };
+            
+            setValoresDia(sortedData);
         }).catch((error) => {
             console.log(error);
         });
