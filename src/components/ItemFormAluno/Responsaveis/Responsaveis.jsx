@@ -3,7 +3,17 @@ import styles from "./Responsaveis.module.css";
 import Input from "../../Input/Input";
 import InputMask from "react-input-mask";
 
-const Responsaveis = ({responsaveisRef}) => {    
+const Responsaveis = ({responsaveisRef}) => {   
+
+    try {
+        if (!responsaveisRef || !responsaveisRef.current) {
+            return
+        }
+    } catch (error) {
+        console.error("Error in Responsaveis component:", error);
+        return 
+    }
+
     return (
             <div className={styles["inputs"]}>
                 <Input

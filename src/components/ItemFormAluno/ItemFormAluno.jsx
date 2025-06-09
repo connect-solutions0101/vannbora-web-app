@@ -34,13 +34,7 @@ const ItemFormAluno = ({
                 return (
                     <div style={{display:"flex", gap:"80px"}}>
                         <Responsaveis responsaveisRef={responsavel1}/>
-                        {
-                            responsavel2.current !== null ? (
-                                <Responsaveis responsaveisRef={responsavel2}/>
-                            ) : (
-                                null
-                            )
-                        }
+                        <Responsaveis responsaveisRef={responsavel2}/>
                     </div>
                 );
             case 1:
